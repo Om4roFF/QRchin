@@ -13,17 +13,23 @@ import 'package:qrching/utilities/custom_icons_icons.dart';
 import 'package:device_information/device_information.dart';
 
 class IntroductionPage extends StatelessWidget {
+  final String? locale;
   final introKey = GlobalKey<IntroductionScreenState>();
   final languages = const [
     'English',
     'Руский',
     'German',
   ];
-  
-  void _onIntroEnd(context)async {
+
+  IntroductionPage({Key? key, this.locale}) : super(key: key);
+
+  void _onIntroEnd(context) async {
     final provider = Provider.of<ApplicationProvider>(context, listen: false);
     final imei = await DeviceInformation.deviceIMEINumber;
+    final model = await DeviceInformation.deviceModel;
+    print('model: $model');
     print('IMEI: $imei');
+    print(locale);
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (_) => ChangeNotifierProvider<ApplicationProvider>.value(
