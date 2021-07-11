@@ -9,15 +9,17 @@ class AppTheme {
         backgroundColor: AppColor.backgroundColorLight,
         textTheme: TextTheme(
           bodyText1: TextStyle(color: Colors.black),
-          bodyText2: TextStyle(color: Colors.black),
-          subtitle1: TextStyle(color: Color.fromRGBO(86, 86, 86, 1),),
+          bodyText2: TextStyle(color: Colors.black, fontSize: 12),
+          subtitle1: TextStyle(
+            color: Color.fromRGBO(86, 86, 86, 1),
+          ),
         ),
         brightness: Brightness.light,
         dialogBackgroundColor: Colors.grey[200],
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           backgroundColor: Colors.white,
           selectedItemColor: AppColor.primarySwatchColor,
-          unselectedItemColor: AppColor.navigationBarColorItem,
+          unselectedItemColor: AppColor.appGreyColor,
           elevation: 10,
           showUnselectedLabels: true,
         ),
@@ -31,6 +33,12 @@ class AppTheme {
           color: Colors.white,
         ),
         primaryColorLight: Colors.white,
+        radioTheme: RadioThemeData(
+          splashRadius: 0,
+        ),
+        dataTableTheme: DataTableThemeData(
+          decoration: BoxDecoration(),
+        ),
       );
 
   get darkTheme => ThemeData(
@@ -48,7 +56,7 @@ class AppTheme {
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           backgroundColor: Colors.black,
           selectedItemColor: AppColor.primarySwatchColor,
-          unselectedItemColor: AppColor.navigationBarColorItem,
+          unselectedItemColor: AppColor.appGreyColor,
           elevation: 10,
           showUnselectedLabels: true,
         ),

@@ -3,6 +3,9 @@ import 'dart:developer';
 import 'package:devicelocale/devicelocale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:qrching/generated/l10n.dart';
+import 'package:qrching/providers/application_provider.dart';
 import 'package:qrching/ui/home_page/home_page.dart';
 import 'package:qrching/ui/introduction_page/introduction_page.dart';
 import 'package:qrching/utilities/application.dart';
@@ -24,6 +27,7 @@ class VideoState extends State<Splash> with SingleTickerProviderStateMixin {
 
   void navigationPage() async {
     final isClient = await Application.isClient();
+    setLang(context, _locale!);
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => isClient
@@ -33,6 +37,19 @@ class VideoState extends State<Splash> with SingleTickerProviderStateMixin {
               ),
       ),
     );
+  }
+
+  void setLang(BuildContext context, String locale) {
+    if (locale == 'ru_RU') {
+      S.load(Locale('ru'));
+      Provider.of<ApplicationProvider>(context, listen: false).setLang('ru');
+    } else if (locale == 'gr_GR') {
+      S.load(Locale('gr'));
+      Provider.of<ApplicationProvider>(context, listen: false).setLang('gr');
+    } else {
+      Provider.of<ApplicationProvider>(context, listen: false).setLang('en');
+      S.load(Locale('ru'));
+    }
   }
 
   @override
@@ -77,18 +94,12 @@ class VideoState extends State<Splash> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          FittedBox(
-            fit: BoxFit.cover,
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height - 200,
-              child: VideoPlayer(_controller!),
-            ),
-          ),
-        ],
+      body: Center(
+        child: Container(
+          width: 1080,
+          height: 1920,
+          child: VideoPlayer(_controller!),
+        ),
       ),
     );
   }

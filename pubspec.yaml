@@ -21,12 +21,14 @@ dependencies:
   country_icons: ^2.0.2
   shared_preferences: ^2.0.6
   provider: ^5.0.0
-  device_information: ^0.0.4
   intl: ^0.17.0
   devicelocale: ^0.4.1
   video_player: ^2.1.8
-  unique_identifier: ^0.2.0
   device_info: ^2.0.2
+  blake2b: ^0.2.1
+  country_codes: ^2.0.1
+  permission_handler: ^8.1.2
+  expandable: ^5.0.1
 
 
 dev_dependencies:
