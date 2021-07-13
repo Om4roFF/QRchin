@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:qrching/generated/l10n.dart';
 import 'package:qrching/providers/application_provider.dart';
-import 'package:qrching/ui/splash_page.dart';
+import 'package:qrching/ui/home_page/home_page.dart';
 import 'package:qrching/utilities/app_theme.dart';
 import 'package:qrching/utilities/application.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +39,7 @@ class App extends StatelessWidget {
       themeMode: Provider.of<ApplicationProvider>(context).getDarkMode
           ? ThemeMode.dark
           : ThemeMode.light,
-      home: Splash(),
+      home: HomePage(),
     );
   }
 }

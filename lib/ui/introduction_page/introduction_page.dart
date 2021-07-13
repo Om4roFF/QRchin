@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:device_info/device_info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ import 'package:qrching/providers/application_provider.dart';
 import 'package:qrching/ui/home_page/home_page.dart';
 import 'package:qrching/utilities/application.dart';
 import 'package:qrching/utilities/custom_icons_icons.dart';
-import 'package:device_information/device_information.dart';
+import 'package:unique_identifier/unique_identifier.dart';
 
 class IntroductionPage extends StatelessWidget {
   final String? locale;
@@ -25,10 +26,18 @@ class IntroductionPage extends StatelessWidget {
 
   void _onIntroEnd(context) async {
     final provider = Provider.of<ApplicationProvider>(context, listen: false);
-    final imei = await DeviceInformation.deviceIMEINumber;
-    final model = await DeviceInformation.deviceModel;
-    print('model: $model');
-    print('IMEI: $imei');
+    late String? identifier;
+    if (Platform.isAndroid) {
+      final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+      var data = await deviceInfoPlugin.iosInfo;
+      var androidData = await deviceInfoPlugin.androidInfo;
+      print(androidData);
+      identifier = data.identifierForVendor;
+    } else {
+      identifier = await UniqueIdentifier.serial;
+    }
+
+    print('model: $identifier');
     print(locale);
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(

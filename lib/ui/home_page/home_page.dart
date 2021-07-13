@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:qrching/providers/application_provider.dart';
 import 'package:qrching/ui/home_page/another_widget.dart';
 import 'package:qrching/ui/home_page/create_widget.dart';
@@ -7,7 +8,6 @@ import 'package:qrching/ui/home_page/history_widget.dart';
 import 'package:qrching/ui/home_page/review_widget.dart';
 import 'package:qrching/ui/home_page/scanner_widget.dart';
 import 'package:qrching/utilities/custom_icons_icons.dart';
-import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
 
@@ -20,7 +20,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Home'),),
       body: _children[context.select((ApplicationProvider app) => app.getNavigationIndex)],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Theme.of(context).primaryColorLight,
