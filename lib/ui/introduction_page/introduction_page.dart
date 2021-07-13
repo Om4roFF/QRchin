@@ -11,7 +11,8 @@ import 'package:qrching/providers/application_provider.dart';
 import 'package:qrching/ui/home_page/home_page.dart';
 import 'package:qrching/utilities/application.dart';
 import 'package:qrching/utilities/custom_icons_icons.dart';
-import 'package:unique_identifier/unique_identifier.dart';
+import 'package:blake2b/blake2b_hash.dart';
+import 'package:country_codes/country_codes.dart';
 
 class IntroductionPage extends StatelessWidget {
   final String? locale;
@@ -26,18 +27,22 @@ class IntroductionPage extends StatelessWidget {
 
   void _onIntroEnd(context) async {
     final provider = Provider.of<ApplicationProvider>(context, listen: false);
-    late String? identifier;
-    if (Platform.isAndroid) {
-      final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
-      var data = await deviceInfoPlugin.iosInfo;
-      var androidData = await deviceInfoPlugin.androidInfo;
-      print(androidData);
-      identifier = data.identifierForVendor;
-    } else {
-      identifier = await UniqueIdentifier.serial;
-    }
+    final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+    Locale myLocale = Localizations.localeOf(context);
+    print(myLocale.languageCode);
+    print(myLocale.countryCode);
 
-    print('model: $identifier');
+    late final imei;
+    if (Platform.isAndroid) {
+      final androidInfo = await deviceInfoPlugin.androidInfo;
+      imei = androidInfo.androidId;
+    } else if (Platform.isIOS) {
+      final iphoneInfo = await deviceInfoPlugin.iosInfo;
+      imei = iphoneInfo.identifierForVendor;
+    }
+    final hash = Blake2bHash.hashUtf8String2HexString(imei).toUpperCase();
+    print(hash);
+
     print(locale);
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
@@ -49,10 +54,12 @@ class IntroductionPage extends StatelessWidget {
     );
   }
 
-  void _switchTheme(bool value, BuildContext context) async {
+  void _switchTheme(BuildContext context) async {
+    final currentTheme =
+        Provider.of<ApplicationProvider>(context, listen: false).getDarkMode;
     Provider.of<ApplicationProvider>(context, listen: false)
-        .setThemeMode(value);
-    Application.setDarkTheme(value);
+        .setThemeMode(!currentTheme);
+    Application.setDarkTheme(!currentTheme);
   }
 
   bool valueTheme(context) {
@@ -71,17 +78,18 @@ class IntroductionPage extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 10, left: 10),
                 child: Align(
                   alignment: Alignment.centerLeft,
-                  // child:
-                  child: Platform.isIOS
-                      ? CupertinoSwitch(
-                          value: valueTheme(context),
-                          onChanged: (value) => _switchTheme(value, context),
-                        )
-                      : Switch(
-                          value: valueTheme(context),
-                          onChanged: (value) => _switchTheme(value, context),
-                          activeColor: Theme.of(context).primaryColor,
-                        ),
+                  child: IconButton(
+                    onPressed: () => _switchTheme(context),
+                    icon:
+                        Provider.of<ApplicationProvider>(context, listen: false)
+                                .getDarkMode
+                            ? Icon(
+                                Icons.light_mode,
+                              )
+                            : Icon(
+                                Icons.dark_mode,
+                              ),
+                  ),
                 ),
               ),
               Padding(
@@ -322,9 +330,9 @@ class _FirstPage extends StatelessWidget {
 class _SecondPage extends StatelessWidget {
   final content = const [
     ['Зайти в раздел ', 'Обзор розыгрышей', CustomIcons.vector],
-    ['Перейти по одной из ссылок непосредственно к розыгрышу', null, null],
+    ['Перейти по одной из ссылок непосредственно к \nрозыгрышу', null, null],
     [
-      'Найти QR-код и сохранить его в галерею или отобразить на экране компьютера',
+      'Найти QR-код и сохранить его в галерею или \nотобразить на экране компьютера',
       null,
       null
     ],
@@ -362,7 +370,6 @@ class _SecondPage extends StatelessWidget {
                 itemCount: content.length,
                 padding: EdgeInsets.all(8),
                 itemBuilder: (context, index) {
-                  // return Text('${index+1} ${content[index]}' , style: TextStyle(fontSize: 12),);
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
@@ -441,7 +448,7 @@ class _ThirdPage extends StatelessWidget {
     ['Оплатить розыгрыш', null, null],
     ['Получить QR-код и разместить его на своей странице', null, null],
     [
-      'Розыгрыш автоматически появится в обзоре розыгрышей в указанное тобой время',
+      'Розыгрыш автоматически появится в обзоре \nрозыгрышей в указанное тобой время',
       null,
       null
     ],
@@ -451,11 +458,11 @@ class _ThirdPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        padding: EdgeInsets.only(top: 100, left: 20, right: 20),
+        padding: EdgeInsets.only(top: 100),
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10),
+              padding: const EdgeInsets.only(left: 10, right: 20),
               child: Text(
                 'Создавай розыгрыши для увеличения посещаемости своего сайта или канала!',
                 textAlign: TextAlign.center,
@@ -464,7 +471,7 @@ class _ThirdPage extends StatelessWidget {
             ),
             Padding(
               padding:
-                  EdgeInsets.only(top: 15, left: 30, right: 30, bottom: 20),
+                  EdgeInsets.only(top: 15, left: 40, right: 40, bottom: 20),
               child: Image.asset('assets/images/main-3.png'),
             ),
             Text(
@@ -477,7 +484,9 @@ class _ThirdPage extends StatelessWidget {
                 padding: EdgeInsets.all(8),
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding:
+                        const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 25),
+                    // EdgeInsets.all(8),
                     child: Row(
                       children: [
                         ClipRRect(

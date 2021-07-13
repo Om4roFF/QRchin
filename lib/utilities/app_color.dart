@@ -15,7 +15,7 @@ class AppColor {
   };
 
   static final primarySwatchColor = Color.fromRGBO(90, 176, 162, 1);
-  static final navigationBarColorItem = Color.fromRGBO(140, 140, 140, 1);
+  static final appGreyColor = Color.fromRGBO(140, 140, 140, 1);
   static final materialPrimarySwatchColor = MaterialColor(0xFF5AB0A2, color);
   static final backgroundColorLight = Colors.white;
   static final backgroundColorDark = Colors.black;

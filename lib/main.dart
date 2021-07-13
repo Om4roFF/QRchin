@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:qrching/generated/l10n.dart';
 import 'package:qrching/providers/application_provider.dart';
 import 'package:qrching/ui/home_page/home_page.dart';
+import 'package:qrching/ui/splash_page.dart';
 import 'package:qrching/utilities/app_theme.dart';
 import 'package:qrching/utilities/application.dart';
 
