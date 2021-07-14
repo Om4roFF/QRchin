@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:qrching/domain/cubit/user_cubit.dart';
+import 'package:qrching/domain/cubit/user_state.dart';
+import 'package:qrching/presentation/ui/home_page/review_widget.dart';
+import 'package:qrching/presentation/ui/home_page/scanner_widget.dart';
+import 'package:qrching/presentation/utilities/custom_icons_icons.dart';
 import 'package:qrching/providers/application_provider.dart';
 import 'package:qrching/providers/draw_creation_prvider.dart';
-import 'package:qrching/ui/home_page/another_widget.dart';
-import 'package:qrching/ui/home_page/create_widget.dart';
-import 'package:qrching/ui/home_page/history_widget.dart';
-import 'package:qrching/ui/home_page/review_widget.dart';
-import 'package:qrching/ui/home_page/scanner_widget.dart';
-import 'package:qrching/utilities/custom_icons_icons.dart';
-import 'package:provider/provider.dart';
+
+import 'another_widget.dart';
+import 'create_widget.dart';
+import 'history_widget.dart';
 
 class HomePage extends StatelessWidget {
   final List<Widget> _children = [
@@ -30,8 +33,25 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _children[
-          context.select((ApplicationProvider app) => app.getNavigationIndex)],
+      body: BlocBuilder<UserCubit, UserState>(builder: (context, state) {
+        if (state is UserLoadedState) {
+          return _children[context
+              .select((ApplicationProvider app) => app.getNavigationIndex)];
+        } else if (state is UserLoadingState) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (state is UserErrorState) {
+          return Center(
+            child: Text("Error state!"),
+          );
+        } else
+          return Container(
+            child: Center(
+              child: Text('ELSE...'),
+            ),
+          );
+      }),
       bottomNavigationBar: BottomNavigationBar(
         enableFeedback: true,
         type: BottomNavigationBarType.fixed,

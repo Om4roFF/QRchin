@@ -1,21 +1,22 @@
+import 'dart:developer';
 import 'dart:io';
 
+import 'package:blake2b/blake2b_hash.dart';
 import 'package:device_info/device_info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:qrching/generated/l10n.dart';
+import 'package:qrching/domain/cubit/user_cubit.dart';
+import 'package:qrching/presentation/generated/l10n.dart';
+import 'package:qrching/presentation/ui/home_page/home_page.dart';
+import 'package:qrching/presentation/utilities/application.dart';
+import 'package:qrching/presentation/utilities/custom_icons_icons.dart';
 import 'package:qrching/providers/application_provider.dart';
-import 'package:qrching/ui/home_page/home_page.dart';
-import 'package:qrching/utilities/application.dart';
-import 'package:qrching/utilities/custom_icons_icons.dart';
-import 'package:blake2b/blake2b_hash.dart';
-import 'package:country_codes/country_codes.dart';
 
 class IntroductionPage extends StatelessWidget {
-  final String? locale;
   final introKey = GlobalKey<IntroductionScreenState>();
   final languages = const [
     'English',
@@ -23,14 +24,12 @@ class IntroductionPage extends StatelessWidget {
     'German',
   ];
 
-  IntroductionPage({Key? key, this.locale}) : super(key: key);
+  IntroductionPage({Key? key}) : super(key: key);
 
   void _onIntroEnd(context) async {
     final provider = Provider.of<ApplicationProvider>(context, listen: false);
     final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
     Locale myLocale = Localizations.localeOf(context);
-    print(myLocale.languageCode);
-    print(myLocale.countryCode);
 
     late final imei;
     if (Platform.isAndroid) {
@@ -41,9 +40,12 @@ class IntroductionPage extends StatelessWidget {
       imei = iphoneInfo.identifierForVendor;
     }
     final hash = Blake2bHash.hashUtf8String2HexString(imei).toUpperCase();
-    print(hash);
-
-    print(locale);
+    log('LANGUAGE CODE: ${myLocale.languageCode}');
+    log('CURRENT LANGUAGE ${provider.getLang}');
+    log('HASH: $hash');
+    final userCubit = BlocProvider.of<UserCubit>(context);
+    userCubit.initClient(
+        hash: hash, language: provider.getLang, country: myLocale.languageCode);
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (_) => ChangeNotifierProvider<ApplicationProvider>.value(
@@ -81,14 +83,14 @@ class IntroductionPage extends StatelessWidget {
                   child: IconButton(
                     onPressed: () => _switchTheme(context),
                     icon:
-                        Provider.of<ApplicationProvider>(context, listen: false)
-                                .getDarkMode
-                            ? Icon(
-                                Icons.light_mode,
-                              )
-                            : Icon(
-                                Icons.dark_mode,
-                              ),
+                    Provider.of<ApplicationProvider>(context, listen: false)
+                        .getDarkMode
+                        ? Icon(
+                      Icons.light_mode,
+                    )
+                        : Icon(
+                      Icons.dark_mode,
+                    ),
                   ),
                 ),
               ),
@@ -193,7 +195,7 @@ class _FirstPage extends StatelessWidget {
             Text(
               S.of(context).scan_and_win,
               style:
-                  Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 26),
+              Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 26),
             ),
             Text(
               S.of(context).free,
@@ -204,7 +206,7 @@ class _FirstPage extends StatelessWidget {
             ),
             Padding(
               padding:
-                  EdgeInsets.only(top: 15, left: 30, right: 30, bottom: 20),
+              EdgeInsets.only(top: 15, left: 30, right: 30, bottom: 20),
               child: Image.asset(
                 'assets/images/main-2.png',
               ),
@@ -358,7 +360,7 @@ class _SecondPage extends StatelessWidget {
             ),
             Padding(
               padding:
-                  EdgeInsets.only(top: 15, left: 30, right: 30, bottom: 20),
+              EdgeInsets.only(top: 15, left: 30, right: 30, bottom: 20),
               child: Image.asset('assets/images/main-1.png'),
             ),
             Text(
@@ -403,16 +405,16 @@ class _SecondPage extends StatelessWidget {
                                 ),
                                 content[index][1] != null
                                     ? TextSpan(
-                                        text: '${content[index][1]}',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1!
-                                            .copyWith(
-                                                fontWeight: FontWeight.bold,
-                                                decoration:
-                                                    TextDecoration.underline,
-                                                fontSize: 12),
-                                      )
+                                  text: '${content[index][1]}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      decoration:
+                                      TextDecoration.underline,
+                                      fontSize: 12),
+                                )
                                     : TextSpan(),
                                 TextSpan(text: ' '),
                                 WidgetSpan(
@@ -471,7 +473,7 @@ class _ThirdPage extends StatelessWidget {
             ),
             Padding(
               padding:
-                  EdgeInsets.only(top: 15, left: 40, right: 40, bottom: 20),
+              EdgeInsets.only(top: 15, left: 40, right: 40, bottom: 20),
               child: Image.asset('assets/images/main-3.png'),
             ),
             Text(
@@ -485,7 +487,7 @@ class _ThirdPage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding:
-                        const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 25),
+                    const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 25),
                     // EdgeInsets.all(8),
                     child: Row(
                       children: [
@@ -518,16 +520,16 @@ class _ThirdPage extends StatelessWidget {
                                 ),
                                 content[index][1] != null
                                     ? TextSpan(
-                                        text: '${content[index][1]}',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1!
-                                            .copyWith(
-                                                fontWeight: FontWeight.bold,
-                                                decoration:
-                                                    TextDecoration.underline,
-                                                fontSize: 12),
-                                      )
+                                  text: '${content[index][1]}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      decoration:
+                                      TextDecoration.underline,
+                                      fontSize: 12),
+                                )
                                     : TextSpan(),
                                 TextSpan(text: ' '),
                                 WidgetSpan(

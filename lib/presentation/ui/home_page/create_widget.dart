@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:expandable/expandable.dart';
 import 'package:provider/provider.dart';
+import 'package:qrching/presentation/utilities/app_color.dart';
 import 'package:qrching/providers/draw_creation_prvider.dart';
-import 'package:qrching/utilities/app_color.dart';
 
 class CreateWidget extends StatelessWidget {
   const CreateWidget({Key? key}) : super(key: key);

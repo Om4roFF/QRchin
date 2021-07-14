@@ -22,17 +22,17 @@ dependencies:
   shared_preferences: ^2.0.6
   provider: ^5.0.0
   intl: ^0.17.0
-  devicelocale: ^0.4.1
   video_player: ^2.1.8
   device_info: ^2.0.2
   blake2b: ^0.2.1
-  country_codes: ^2.0.1
   permission_handler: ^8.1.2
   expandable: ^5.0.1
   qr_code_scanner: ^0.5.1
   scan: ^1.4.3
   image_picker: ^0.8.1+3
-
+  dio: ^4.0.0
+  flutter_bloc: ^7.0.1
+  http: ^0.13.3
 
 dev_dependencies:
   flutter_test:

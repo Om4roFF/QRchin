@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:qrching/generated/l10n.dart';
+import 'package:qrching/domain/cubit/user_cubit.dart';
+import 'package:qrching/internal/dependencies/user_state_module.dart';
+import 'package:qrching/presentation/generated/l10n.dart';
+import 'package:qrching/presentation/ui/splash_page.dart';
+import 'package:qrching/presentation/utilities/app_theme.dart';
+import 'package:qrching/presentation/utilities/application.dart';
 import 'package:qrching/providers/application_provider.dart';
-import 'package:qrching/ui/home_page/home_page.dart';
-import 'package:qrching/ui/splash_page.dart';
-import 'package:qrching/utilities/app_theme.dart';
-import 'package:qrching/utilities/application.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final bool isDark = await Application.isDarkTheme();
   final String lang = await Application.getLanguage();
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(
-        create: (context) => ApplicationProvider(isDark, lang),
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => ApplicationProvider(isDark, lang),
+      child: BlocProvider<UserCubit>(
+        create: (context) => UserStateModule.userCubit()..initClient(),
+        child: App(),
       ),
-    ],
-    child: App(),
-  ));
+    ),
+  );
 }
 
 class App extends StatelessWidget {
@@ -37,10 +40,12 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme().lightTheme,
       darkTheme: AppTheme().darkTheme,
-      themeMode: Provider.of<ApplicationProvider>(context).getDarkMode
+      themeMode: Provider
+          .of<ApplicationProvider>(context)
+          .getDarkMode
           ? ThemeMode.dark
           : ThemeMode.light,
-      home: HomePage(),
+      home: Splash(),
     );
   }
 }

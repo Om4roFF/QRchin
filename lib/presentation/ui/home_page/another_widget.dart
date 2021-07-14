@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qrching/utilities/custom_icons_icons.dart';
+import 'package:qrching/presentation/utilities/custom_icons_icons.dart';
 
 class AnotherWidget extends StatelessWidget {
   AnotherWidget({Key? key}) : super(key: key);

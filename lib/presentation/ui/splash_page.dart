@@ -1,15 +1,15 @@
 import 'dart:async';
 import 'dart:developer';
-import 'package:devicelocale/devicelocale.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:qrching/generated/l10n.dart';
+import 'package:qrching/presentation/generated/l10n.dart';
+import 'package:qrching/presentation/utilities/application.dart';
 import 'package:qrching/providers/application_provider.dart';
-import 'package:qrching/ui/home_page/home_page.dart';
-import 'package:qrching/ui/introduction_page/introduction_page.dart';
-import 'package:qrching/utilities/application.dart';
 import 'package:video_player/video_player.dart';
+
+import 'home_page/home_page.dart';
+import 'introduction_page/introduction_page.dart';
 
 class Splash extends StatefulWidget {
   @override
@@ -18,7 +18,6 @@ class Splash extends StatefulWidget {
 
 class VideoState extends State<Splash> with SingleTickerProviderStateMixin {
   late VideoPlayerController? _controller;
-  String? _locale;
 
   startTime() async {
     var _duration = new Duration(seconds: 4);
@@ -27,29 +26,18 @@ class VideoState extends State<Splash> with SingleTickerProviderStateMixin {
 
   void navigationPage() async {
     final isClient = await Application.isClient();
-    setLang(context, _locale!);
-    Navigator.of(context).push(
+    Locale myLocale = Localizations.localeOf(context);
+    setLang(context, myLocale.languageCode);
+    Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (context) => isClient
-            ? HomePage()
-            : IntroductionPage(
-                locale: _locale,
-              ),
+        builder: (context) => isClient ? HomePage() : IntroductionPage(),
       ),
     );
   }
 
   void setLang(BuildContext context, String locale) {
-    if (locale == 'ru_RU') {
-      S.load(Locale('ru'));
-      Provider.of<ApplicationProvider>(context, listen: false).setLang('ru');
-    } else if (locale == 'gr_GR') {
-      S.load(Locale('gr'));
-      Provider.of<ApplicationProvider>(context, listen: false).setLang('gr');
-    } else {
-      Provider.of<ApplicationProvider>(context, listen: false).setLang('en');
-      S.load(Locale('ru'));
-    }
+    S.load(Locale(locale));
+    Provider.of<ApplicationProvider>(context, listen: false).setLang(locale);
   }
 
   @override
@@ -63,25 +51,9 @@ class VideoState extends State<Splash> with SingleTickerProviderStateMixin {
         // Ensure the first frame is shown after the video is initialized.
         setState(() {});
       });
-    initPlatformState();
     startTime();
   }
 
-  Future<void> initPlatformState() async {
-    String? currentLocale;
-    try {
-      currentLocale = await Devicelocale.currentLocale;
-      print((currentLocale != null)
-          ? currentLocale
-          : "Unable to get currentLocale");
-    } on PlatformException {
-      print("Error obtaining current locale");
-    }
-    if (!mounted) return;
-    setState(() {
-      _locale = currentLocale;
-    });
-  }
 
   @override
   void dispose() {
@@ -97,7 +69,7 @@ class VideoState extends State<Splash> with SingleTickerProviderStateMixin {
       body: Center(
         child: Container(
           width: 1080,
-          height: 1920,
+          height: 1520,
           child: VideoPlayer(_controller!),
         ),
       ),
