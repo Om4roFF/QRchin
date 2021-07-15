@@ -10,11 +10,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:qrching/domain/cubit/user_cubit.dart';
-import 'package:qrching/presentation/generated/l10n.dart';
 import 'package:qrching/presentation/ui/home_page/home_page.dart';
 import 'package:qrching/presentation/utilities/application.dart';
 import 'package:qrching/presentation/utilities/custom_icons_icons.dart';
 import 'package:qrching/providers/application_provider.dart';
+import 'package:qrching/generated/l10n.dart';
+
 
 class IntroductionPage extends StatelessWidget {
   final introKey = GlobalKey<IntroductionScreenState>();
@@ -83,14 +84,14 @@ class IntroductionPage extends StatelessWidget {
                   child: IconButton(
                     onPressed: () => _switchTheme(context),
                     icon:
-                    Provider.of<ApplicationProvider>(context, listen: false)
-                        .getDarkMode
-                        ? Icon(
-                      Icons.light_mode,
-                    )
-                        : Icon(
-                      Icons.dark_mode,
-                    ),
+                        Provider.of<ApplicationProvider>(context, listen: false)
+                                .getDarkMode
+                            ? Icon(
+                                Icons.light_mode,
+                              )
+                            : Icon(
+                                Icons.dark_mode,
+                              ),
                   ),
                 ),
               ),
@@ -195,7 +196,7 @@ class _FirstPage extends StatelessWidget {
             Text(
               S.of(context).scan_and_win,
               style:
-              Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 26),
+                  Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 26),
             ),
             Text(
               S.of(context).free,
@@ -206,7 +207,7 @@ class _FirstPage extends StatelessWidget {
             ),
             Padding(
               padding:
-              EdgeInsets.only(top: 15, left: 30, right: 30, bottom: 20),
+                  EdgeInsets.only(top: 15, left: 30, right: 30, bottom: 20),
               child: Image.asset(
                 'assets/images/main-2.png',
               ),
@@ -360,7 +361,7 @@ class _SecondPage extends StatelessWidget {
             ),
             Padding(
               padding:
-              EdgeInsets.only(top: 15, left: 30, right: 30, bottom: 20),
+                  EdgeInsets.only(top: 15, left: 30, right: 30, bottom: 20),
               child: Image.asset('assets/images/main-1.png'),
             ),
             Text(
@@ -405,16 +406,16 @@ class _SecondPage extends StatelessWidget {
                                 ),
                                 content[index][1] != null
                                     ? TextSpan(
-                                  text: '${content[index][1]}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      decoration:
-                                      TextDecoration.underline,
-                                      fontSize: 12),
-                                )
+                                        text: '${content[index][1]}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1!
+                                            .copyWith(
+                                                fontWeight: FontWeight.bold,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                                fontSize: 12),
+                                      )
                                     : TextSpan(),
                                 TextSpan(text: ' '),
                                 WidgetSpan(
@@ -473,7 +474,7 @@ class _ThirdPage extends StatelessWidget {
             ),
             Padding(
               padding:
-              EdgeInsets.only(top: 15, left: 40, right: 40, bottom: 20),
+                  EdgeInsets.only(top: 15, left: 40, right: 40, bottom: 20),
               child: Image.asset('assets/images/main-3.png'),
             ),
             Text(
@@ -487,7 +488,7 @@ class _ThirdPage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding:
-                    const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 25),
+                        const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 25),
                     // EdgeInsets.all(8),
                     child: Row(
                       children: [
@@ -520,16 +521,16 @@ class _ThirdPage extends StatelessWidget {
                                 ),
                                 content[index][1] != null
                                     ? TextSpan(
-                                  text: '${content[index][1]}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      decoration:
-                                      TextDecoration.underline,
-                                      fontSize: 12),
-                                )
+                                        text: '${content[index][1]}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1!
+                                            .copyWith(
+                                                fontWeight: FontWeight.bold,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                                fontSize: 12),
+                                      )
                                     : TextSpan(),
                                 TextSpan(text: ' '),
                                 WidgetSpan(

@@ -3,11 +3,10 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:qrching/presentation/generated/l10n.dart';
 import 'package:qrching/presentation/utilities/application.dart';
 import 'package:qrching/providers/application_provider.dart';
 import 'package:video_player/video_player.dart';
-
+import 'package:qrching/generated/l10n.dart';
 import 'home_page/home_page.dart';
 import 'introduction_page/introduction_page.dart';
 
@@ -53,7 +52,6 @@ class VideoState extends State<Splash> with SingleTickerProviderStateMixin {
       });
     startTime();
   }
-
 
   @override
   void dispose() {
