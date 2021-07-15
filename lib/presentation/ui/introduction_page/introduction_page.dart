@@ -10,12 +10,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:qrching/domain/cubit/user_cubit.dart';
+import 'package:qrching/domain/model/client_body.dart';
+import 'package:qrching/generated/l10n.dart';
 import 'package:qrching/presentation/ui/home_page/home_page.dart';
 import 'package:qrching/presentation/utilities/application.dart';
 import 'package:qrching/presentation/utilities/custom_icons_icons.dart';
 import 'package:qrching/providers/application_provider.dart';
-import 'package:qrching/generated/l10n.dart';
-
 
 class IntroductionPage extends StatelessWidget {
   final introKey = GlobalKey<IntroductionScreenState>();
@@ -51,7 +51,9 @@ class IntroductionPage extends StatelessWidget {
       MaterialPageRoute(
         builder: (_) => ChangeNotifierProvider<ApplicationProvider>.value(
           value: provider,
-          child: HomePage(),
+          child: HomePage(ClientBody(hash: hash,
+              language: provider.getLang,
+              country: myLocale.languageCode),),
         ),
       ),
     );

@@ -3,10 +3,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qrching/domain/model/client_body.dart';
+import 'package:qrching/generated/l10n.dart';
 import 'package:qrching/presentation/utilities/application.dart';
 import 'package:qrching/providers/application_provider.dart';
 import 'package:video_player/video_player.dart';
-import 'package:qrching/generated/l10n.dart';
+
 import 'home_page/home_page.dart';
 import 'introduction_page/introduction_page.dart';
 
@@ -29,7 +31,8 @@ class VideoState extends State<Splash> with SingleTickerProviderStateMixin {
     setLang(context, myLocale.languageCode);
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (context) => isClient ? HomePage() : IntroductionPage(),
+        builder: (context) =>
+            isClient ? HomePage(ClientBody.empty()) : IntroductionPage(),
       ),
     );
   }
@@ -53,6 +56,7 @@ class VideoState extends State<Splash> with SingleTickerProviderStateMixin {
     startTime();
   }
 
+
   @override
   void dispose() {
     super.dispose();
@@ -63,13 +67,12 @@ class VideoState extends State<Splash> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: Container(
-          width: 1080,
-          height: 1520,
-          child: VideoPlayer(_controller!),
-        ),
+      backgroundColor: Color.fromARGB(255, 82, 175, 158),
+      body: Container(
+        // width: 1080,
+        // height: 1520,
+        child: Padding(padding: EdgeInsets.symmetric(vertical: 60),
+            child: VideoPlayer(_controller!)),
       ),
     );
   }
