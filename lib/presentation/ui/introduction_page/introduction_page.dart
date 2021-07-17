@@ -103,7 +103,7 @@ class IntroductionPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
-                      CustomIcons.group,
+                      CustomIcons.main,
                       size: 20,
                       color: Theme.of(context).primaryColor,
                     ),
@@ -334,14 +334,14 @@ class _FirstPage extends StatelessWidget {
 
 class _SecondPage extends StatelessWidget {
   final content = const [
-    ['Зайти в раздел ', 'Обзор розыгрышей', CustomIcons.vector],
+    ['Зайти в раздел ', 'Обзор розыгрышей', CustomIcons.cup],
     ['Перейти по одной из ссылок непосредственно к \nрозыгрышу', null, null],
     [
       'Найти QR-код и сохранить его в галерею или \nотобразить на экране компьютера',
       null,
       null
     ],
-    ['Отсканировать QR-код с помощью ', 'Сканера', CustomIcons.group],
+    ['Отсканировать QR-код с помощью ', 'Сканера', CustomIcons.main],
   ];
 
   const _SecondPage({Key? key}) : super(key: key);

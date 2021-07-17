@@ -9,7 +9,7 @@ class HistoryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Center(child: Text('BLA BLA|||||||||||||||||')),
+      child: Center(child: Text('History')),
     );
   }
 }

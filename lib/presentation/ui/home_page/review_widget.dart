@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ReviewWidget extends StatelessWidget {
   const ReviewWidget({Key? key}) : super(key: key);
@@ -60,7 +61,7 @@ class _ReviewTable extends StatelessWidget {
       "Number": "3",
       "Site": {
         "icon":
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Circle-icons-camera.svg/1200px-Circle-icons-camera.svg.png",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Circle-icons-camera.svg/1200px-Circle-icons-camera.svg.png",
         "name": "Facebook",
         "url": "www.youtube..com",
       },
@@ -68,6 +69,9 @@ class _ReviewTable extends StatelessWidget {
       "prizes": 4
     },
   ];
+
+  void _launchURL(String url) async =>
+      await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
 
   @override
   Widget build(BuildContext context) {
@@ -111,112 +115,107 @@ class _ReviewTable extends StatelessWidget {
                     ),
                   ),
                   margin: EdgeInsets.only(left: 13, right: 13, top: 10),
-                  child: Container(
-                    width: double.infinity,
-                    height: 60,
-                    // decoration: BoxDecoration(
-                    //     borderRadius: BorderRadius.circular(10),
-                    //     boxShadow: [
-                    //       BoxShadow(
-                    //         color: Colors.white.withOpacity(0.5),
-                    //         spreadRadius: 1,
-                    //         offset: Offset(0, 3),
-                    //       ),
-                    //     ]),
-
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Expanded(
-                          child: Tooltip(
-                            message: '${index + 1}',
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                '${index + 1}',
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Color.fromRGBO(229, 229, 229, 1),
-                                    fontWeight: FontWeight.bold),
+                  child: GestureDetector(
+                    onTap: () => _launchURL('https://youtube.com'),
+                    child: Container(
+                      width: double.infinity,
+                      height: 60,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Expanded(
+                            child: Tooltip(
+                              message: '${index + 1}',
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: Text(
+                                  '${index + 1}',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: Color.fromRGBO(229, 229, 229, 1),
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        Expanded(
-                          flex: 4,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 5, right: 10),
-                                child: Image.network(
-                                  'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Circle-icons-camera.svg/1200px-Circle-icons-camera.svg.png',
-                                  width: 30,
-                                  height: 30,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              Expanded(
-                                child: Tooltip(
-                                  message: 'www.youtube',
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                        "Vector",
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                        ),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      Text(
-                                        "www.youtube.com",
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                        ),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ],
+                          Expanded(
+                            flex: 4,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.only(left: 5, right: 10),
+                                  child: Image.network(
+                                    'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Circle-icons-camera.svg/1200px-Circle-icons-camera.svg.png',
+                                    width: 30,
+                                    height: 30,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
-                              ),
-                            ],
+                                Expanded(
+                                  child: Tooltip(
+                                    message: 'www.youtube',
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          "Vector",
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        Text(
+                                          "www.youtube.com",
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: Tooltip(
-                            message: '145\$',
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 20, right: 10),
-                              child: Text(
-                                '145\$',
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Theme.of(context).primaryColor,
-                                    fontWeight: FontWeight.bold),
+                          Expanded(
+                            flex: 2,
+                            child: Tooltip(
+                              message: '145\$',
+                              child: Padding(
+                                padding:
+                                const EdgeInsets.only(left: 20, right: 10),
+                                child: Text(
+                                  '145\$',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: Theme
+                                          .of(context)
+                                          .primaryColor,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        VerticalDivider(
-                          thickness: 0.2,
-                          width: 30,
-                          indent: 15,
-                          endIndent: 15,
-                          color: Colors.grey,
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Text(
-                            '4',
-                            style: TextStyle(fontSize: 22),
+                          VerticalDivider(
+                            thickness: 0.2,
+                            width: 30,
+                            indent: 15,
+                            endIndent: 15,
+                            color: Colors.grey,
                           ),
-                        ),
-                      ],
+                          Expanded(
+                            flex: 1,
+                            child: Text(
+                              '4',
+                              style: TextStyle(fontSize: 22),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );

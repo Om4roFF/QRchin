@@ -8,29 +8,31 @@ class CreateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: SafeArea(
-        child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 18),
-                  child: Text(
-                    'Создать розыгрыш',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline5!
-                        .copyWith(fontWeight: FontWeight.bold),
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 18),
+                    child: Text(
+                      'Создать розыгрыш',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline5!
+                          .copyWith(fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
-              ),
-              _sponsorInfo(context),
-              _typeOfDraw(context),
-              _typeOfSponsor(context),
-            ],
+                _sponsorInfo(context),
+                _typeOfDraw(context),
+                _typeOfSponsor(context),
+              ],
+            ),
           ),
         ),
       ),

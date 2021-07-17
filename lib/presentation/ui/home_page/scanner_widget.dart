@@ -5,7 +5,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:qrching/presentation/utilities/custom_icons_icons.dart';
 import 'package:scan/scan.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ScannerWidget extends StatefulWidget {
   const ScannerWidget({Key? key}) : super(key: key);
@@ -37,14 +39,6 @@ class _ScannerWidgetState extends State<ScannerWidget> {
     return Stack(
       children: <Widget>[
         _buildQrView(context),
-        if (result != null)
-          Align(
-            alignment: Alignment.topCenter,
-            child: Text(
-              'Data: $result',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 90, vertical: 13),
           child: Align(
@@ -57,31 +51,38 @@ class _ScannerWidgetState extends State<ScannerWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     IconButton(
-                      icon: Icon(Icons.photo_size_select_actual_outlined),
+                      icon: Icon(CustomIcons.gallery),
                       onPressed: () async {
                         await controller?.pauseCamera();
                         PickedFile? pickedFile =
                             await _picker.getImage(source: ImageSource.gallery);
-                        log('PICKED ${pickedFile!.path}');
                         // final String res = await scanner.scanPath(pickedFile!.path);
-                        String? res = await Scan.parse(pickedFile.path);
-                        log('RESULT: $res');
-                        setState(() {
-                          result = res;
-                        });
+
+                        if (pickedFile != null) {
+                          log('PICKED ${pickedFile.path}');
+                          String? res = await Scan.parse(pickedFile.path);
+                          log('RESULT: $res');
+                          controller!.pauseCamera();
+                          _showDialog(res);
+                          setState(() {
+                            result = res;
+                          });
+                        }
                         await controller?.resumeCamera();
                       },
                       color: Theme.of(context).backgroundColor,
                     ),
                     IconButton(
-                      icon: Icon(Icons.android),
-                      color: Theme.of(context).backgroundColor,
+                      icon: Icon(CustomIcons.flash),
+                      color: Theme
+                          .of(context)
+                          .backgroundColor,
                       onPressed: () async {
                         await controller?.toggleFlash();
                       },
                     ),
                     IconButton(
-                      icon: Icon(Icons.photo_size_select_actual_outlined),
+                      icon: Icon(CustomIcons.doublex),
                       onPressed: () {
                         if (cutSize == 150) {
                           setState(() {
@@ -101,85 +102,33 @@ class _ScannerWidgetState extends State<ScannerWidget> {
             ),
           ),
         ),
-        // FittedBox(
-        //   fit: BoxFit.contain,
-        //   child: Column(
-        //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        //     children: <Widget>[
-        //       if (result != null)
-        //         Text(
-        //             'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
-        //       else
-        //         Text('Scan a code'),
-        //       Row(
-        //         mainAxisAlignment: MainAxisAlignment.center,
-        //         crossAxisAlignment: CrossAxisAlignment.center,
-        //         children: <Widget>[
-        //           Container(
-        //             margin: EdgeInsets.all(8),
-        //             child: ElevatedButton(
-        //                 onPressed: () async {
-        //                   await controller?.toggleFlash();
-        //                   setState(() {});
-        //                 },
-        //                 child: FutureBuilder(
-        //                   future: controller?.getFlashStatus(),
-        //                   builder: (context, snapshot) {
-        //                     return Text('Flash: ${snapshot.data}');
-        //                   },
-        //                 )),
-        //           ),
-        //           Container(
-        //             margin: EdgeInsets.all(8),
-        //             child: ElevatedButton(
-        //                 onPressed: () async {
-        //                   await controller?.flipCamera();
-        //                   setState(() {});
-        //                 },
-        //                 child: FutureBuilder(
-        //                   future: controller?.getCameraInfo(),
-        //                   builder: (context, snapshot) {
-        //                     if (snapshot.data != null) {
-        //                       return Text(
-        //                           'Camera facing ${describeEnum(snapshot.data!)}');
-        //                     } else {
-        //                       return Text('loading');
-        //                     }
-        //                   },
-        //                 )),
-        //           )
-        //         ],
-        //       ),
-        //       Row(
-        //         mainAxisAlignment: MainAxisAlignment.center,
-        //         crossAxisAlignment: CrossAxisAlignment.center,
-        //         children: <Widget>[
-        //           Container(
-        //             margin: EdgeInsets.all(8),
-        //             child: ElevatedButton(
-        //               onPressed: () async {
-        //                 await controller?.pauseCamera();
-        //               },
-        //               child: Text('pause', style: TextStyle(fontSize: 20)),
-        //             ),
-        //           ),
-        //           Container(
-        //             margin: EdgeInsets.all(8),
-        //             child: ElevatedButton(
-        //               onPressed: () async {
-        //                 await controller?.resumeCamera();
-        //               },
-        //               child: Text('resume', style: TextStyle(fontSize: 20)),
-        //             ),
-        //           )
-        //         ],
-        //       ),
-        //     ],
-        //   ),
-        // )
       ],
     );
   }
+
+  void _showDialog(String? result) async {
+    final isUrl = await canLaunch(result!);
+    showDialog(context: context, builder: (_) =>
+        AlertDialog(
+          content: InkWell(child: Text('$result',
+            style: TextStyle(color: isUrl ? Colors.blue : Colors.black),),
+            onTap: () {
+              if (isUrl)
+                _launchURL(result);
+            },),
+          actions: [
+            CloseButton(
+              onPressed: () {
+                controller!.resumeCamera();
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),);
+  }
+
+  Future<void> _launchURL(String url) async => await launch(url);
+
 
   Widget _buildQrView(BuildContext context) {
     // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
@@ -202,6 +151,9 @@ class _ScannerWidgetState extends State<ScannerWidget> {
       this.controller = controller;
     });
     controller.scannedDataStream.listen((scanData) {
+      controller.pauseCamera();
+      _showDialog(scanData.code);
+
       setState(() {
         result = scanData.code;
       });
