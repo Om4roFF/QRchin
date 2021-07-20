@@ -2,9 +2,11 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:qrching/domain/model/client_body.dart';
 import 'package:qrching/generated/l10n.dart';
+import 'package:qrching/internal/dependencies/user_state_module.dart';
 import 'package:qrching/presentation/utilities/application.dart';
 import 'package:qrching/providers/application_provider.dart';
 import 'package:video_player/video_player.dart';
@@ -29,17 +31,34 @@ class VideoState extends State<Splash> with SingleTickerProviderStateMixin {
     final isClient = await Application.isClient();
     Locale myLocale = Localizations.localeOf(context);
     setLang(context, myLocale.languageCode);
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) =>
-            isClient ? HomePage(ClientBody.empty()) : IntroductionPage(),
-      ),
-    );
+    if (isClient) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (BuildContext context) =>
+                UserStateModule.userCubit(country: myLocale.languageCode)
+                  ..initializeClientData(),
+            child: HomePage(),
+          ),
+        ),
+      );
+    } else {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => IntroductionPage(),
+        ),
+      );
+    }
   }
 
   void setLang(BuildContext context, String locale) {
-    S.load(Locale(locale));
-    Provider.of<ApplicationProvider>(context, listen: false).setLang(locale);
+    if (locale == 'ru' || locale == 'de') {
+      S.load(Locale(locale));
+      Provider.of<ApplicationProvider>(context, listen: false).setLang(locale);
+    } else {
+      S.load(Locale('en'));
+      Provider.of<ApplicationProvider>(context, listen: false).setLang('en');
+    }
   }
 
   @override
@@ -56,7 +75,6 @@ class VideoState extends State<Splash> with SingleTickerProviderStateMixin {
     startTime();
   }
 
-
   @override
   void dispose() {
     super.dispose();
@@ -71,7 +89,8 @@ class VideoState extends State<Splash> with SingleTickerProviderStateMixin {
       body: Container(
         // width: 1080,
         // height: 1520,
-        child: Padding(padding: EdgeInsets.symmetric(vertical: 60),
+        child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 60),
             child: VideoPlayer(_controller!)),
       ),
     );

@@ -1,9 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qrching/domain/cubit/user_cubit.dart';
+import 'package:qrching/domain/cubit/user_state.dart';
+import 'package:qrching/domain/model/client_body.dart';
+import 'package:qrching/presentation/utilities/tooltip_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ReviewWidget extends StatelessWidget {
-  const ReviewWidget({Key? key}) : super(key: key);
+  const ReviewWidget({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +23,7 @@ class ReviewWidget extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 18),
                   child: Text(
-                    'Обзор',
+                    'Розыгрыши',
                     style: Theme.of(context)
                         .textTheme
                         .headline5!
@@ -84,19 +91,32 @@ class _ReviewTable extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Expanded(
-                  child: Text('№'),
-                  flex: 1,
-                ),
-                Expanded(
-                  child: Text('Сайт'),
-                  flex: 4,
-                ),
-                Expanded(
-                  child: Text('Бюджет'),
+                  child: MyTooltip(
+                    message: 'Номер розыгрыш',
+                    child: Text('№'),
+                  ),
                   flex: 2,
                 ),
                 Expanded(
-                  child: Text('Призы'),
+                  child: MyTooltip(
+                    message:
+                    'Страница или канал спонсора, где находится QR-код',
+                    child: Text('Сайт'),
+                  ),
+                  flex: 3,
+                ),
+                Expanded(
+                  child: MyTooltip(
+                    message: 'Бюджет розыгрыша',
+                    child: Text('Бюджет'),
+                  ),
+                  flex: 2,
+                ),
+                Expanded(
+                  child: MyTooltip(
+                    message: 'Количество денежных призов розыгрыша',
+                    child: Text('Призы'),
+                  ),
                   flex: 1,
                 ),
               ],
@@ -144,16 +164,6 @@ class _ReviewTable extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Padding(
-                                  padding:
-                                  const EdgeInsets.only(left: 5, right: 10),
-                                  child: Image.network(
-                                    'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Circle-icons-camera.svg/1200px-Circle-icons-camera.svg.png',
-                                    width: 30,
-                                    height: 30,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
                                 Expanded(
                                   child: Tooltip(
                                     message: 'www.youtube',

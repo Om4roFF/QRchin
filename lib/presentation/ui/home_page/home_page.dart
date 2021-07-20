@@ -25,8 +25,6 @@ import 'create_widget.dart';
 import 'history_widget.dart';
 
 class HomePage extends StatelessWidget {
-  final ClientBody _clientBody;
-
   final GlobalKey<NavigatorState> createWidgetKey = GlobalKey<NavigatorState>();
   final GlobalKey<NavigatorState> reviewWidgetKey = GlobalKey<NavigatorState>();
   final GlobalKey<NavigatorState> scannerWidgetKey =
@@ -54,7 +52,7 @@ class HomePage extends StatelessWidget {
     SettingsPage(),
   ];
 
-  HomePage(this._clientBody);
+  HomePage();
 
   void _onTap(int index, BuildContext context) async {
     Provider.of<ApplicationProvider>(context, listen: false)
@@ -64,83 +62,103 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<UserCubit, UserState>(builder: (context, state) {
-        if (state is UserLoadedState) {
-          log('${context.select((ApplicationProvider app) => app
-              .getNavigationIndex)}');
-          return _children[context.select((ApplicationProvider app) =>
-          app.getNavigationIndex)];
-        } else if (state is UserLoadingState) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (state is UserErrorState) {
-          return Center(
-            child: Container(
+      body: BlocBuilder<UserCubit, UserState>(
+        builder: (context, state) {
+          if (state is UserLoadedState) {
+            return _children[context
+                .select((ApplicationProvider app) => app.getNavigationIndex)];
+          } else if (state is UserLoadingState) {
+            return Container(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          } else if (state is UserErrorState) {
+            return Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                      "Не удалось соединиться с сервером. Проверьте подключение к сети интернет"),
+                    "Не удалось соединиться с сервером. Проверьте подключение к сети интернет",
+                    textAlign: TextAlign.center,
+                  ),
                   TextButton(
                     onPressed: () {
                       final userCubit = BlocProvider.of<UserCubit>(context);
-                      userCubit.initClient(
-                          hash: _clientBody.hash,
-                          language: _clientBody.language,
-                          country: _clientBody.country);
+                      userCubit.initializeClientData();
                     },
                     child: Text('Повторить'),
                   )
                 ],
               ),
-            ),
-          );
-        } else
-          return Container(
-            child: Center(
-              child: Text('ELSE...'),
-            ),
-          );
-      }),
+            );
+          }
+          return Container();
+        },
+      ),
       bottomNavigationBar: BottomNavigationBar(
+        // unselectedFontSize: 10,
         enableFeedback: true,
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Theme
-            .of(context)
-            .backgroundColor,
+        elevation: 6,
+        backgroundColor: Theme.of(context).backgroundColor,
         onTap: (index) => _onTap(index, context),
-        currentIndex:
-        context.select((ApplicationProvider app) => app.getNavigationIndex) < 5
-            ? context.select((ApplicationProvider app) =>
-        app.getNavigationIndex)
+        currentIndex: context.select(
+                    (ApplicationProvider app) => app.getNavigationIndex) <
+                5
+            ? context
+                .select((ApplicationProvider app) => app.getNavigationIndex)
             : 4,
         items: [
           BottomNavigationBarItem(
-              icon: Icon(
-                CustomIcons.subtract,
+              icon: SizedBox(
+                child: Icon(
+                  CustomIcons.subtract,
+                ),
+                width: 30,
+                height: 30,
               ),
               label: 'Создать'),
           BottomNavigationBarItem(
-              icon: Icon(
-                CustomIcons.cup,
+              icon: SizedBox(
+                child: Icon(
+                  CustomIcons.cup,
+                ),
+                height: 30,
+                width: 30,
               ),
-              label: 'Обзор'),
+              label: 'Розыгрыши'),
           BottomNavigationBarItem(
-              icon: Icon(
-                CustomIcons.main,
+              icon: SizedBox(
+                child: Icon(
+                  CustomIcons.main,
+                ),
+                width: 30,
+                height: 30,
               ),
               label: 'Сканер'),
           BottomNavigationBarItem(
-              icon: Icon(
-                CustomIcons.history,
+              icon: SizedBox(
+                child: Icon(
+                  CustomIcons.history,
+                ),
+                width: 30,
+                height: 30,
               ),
               label: 'История'),
           BottomNavigationBarItem(
-              icon: Icon(CustomIcons.more, size: 21,), label: ' Ещё'),
+              icon: SizedBox(
+                child: Icon(
+                  CustomIcons.more,
+                  size: 21,
+                ),
+                width: 30,
+                height: 30,
+              ),
+              label: 'Ещё'),
         ],
       ),
     );
   }
-
-
 }

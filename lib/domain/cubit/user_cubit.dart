@@ -7,26 +7,41 @@ import 'package:qrching/domain/repository/client_repository.dart';
 import 'package:qrching/presentation/utilities/application.dart';
 
 class UserCubit extends Cubit<UserState> {
-  UserCubit(this._clientRepository, {UserState? initialState})
-      : super(initialState!);
+  UserCubit(this._clientRepository,
+      {UserState? initialState,
+      String? hash,
+      String? language,
+      required String country})
+      : _hash = hash,
+        _language = language,
+        _country = country,
+        super(initialState!);
   final ClientRepository _clientRepository;
+  late String? _hash;
+  late String? _language;
+  late String _country;
 
-  void initClient({String? hash, String? language, String? country}) async {
+  void initializeClientData() async {
+    final bool isClient = await Application.isClient();
+    if (isClient) {
+      _hash = await Application.getClientHash();
+      _language = await Application.getLanguage();
+      emit(UserLoadedState());
+    } else {
+      _createClient();
+    }
+  }
+
+  void _createClient() async {
     try {
-      if (hash == null || language == null || country == null) {
-        final bool isClient = await Application.isClient();
-        if (isClient) emit(UserLoadedState());
-      } else {
-        log('TRYING TO INIT CLIENT------------------>');
-        emit(UserLoadingState());
-        final Client client = await _clientRepository.createClient(
-            hash: hash, language: language, country: country);
-        log('CLIENT RESPONSE: ${client.toString()}');
-        if (client.errorMessage != null)
-          emit(UserErrorState());
-        else {
-          emit(UserLoadedState());
-        }
+      emit(UserLoadingState());
+      final Client client = await _clientRepository.createClient(
+          hash: _hash, language: _language, country: _country);
+      log('CLIENT RESPONSE: ${client.toString()}');
+      if (client.errorMessage != null)
+        emit(UserErrorState());
+      else {
+        emit(UserLoadedState());
         await Application.setClientHash(client.hash);
       }
     } catch (e) {

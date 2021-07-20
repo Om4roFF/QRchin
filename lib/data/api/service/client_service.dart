@@ -10,6 +10,9 @@ class ClientService {
   final Dio _dio = Dio(BaseOptions(baseUrl: _BASE_URL));
 
   Future<ApiClient> createClient(GetClientBody getClientBody) async {
+    print(getClientBody.toString());
+    print(getClientBody.toApiHeader());
+    print(getClientBody.toApi());
     final response = await _dio.post(
       '/create_member',
       queryParameters: getClientBody.toApi(),

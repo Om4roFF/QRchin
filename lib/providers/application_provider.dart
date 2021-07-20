@@ -23,6 +23,11 @@ class ApplicationProvider extends ChangeNotifier {
   }
 
   String get getLang => this._lang;
+
   int get getNavigationIndex => this._navigationMenuIndex;
-  bool get getDarkMode => this._isDark;
+
+  bool getDarkMode() {
+    print(this._isDark);
+    return this._isDark;
+  }
 }

@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import 'app_color.dart';
 
 class AppTheme {
-  get lightTheme => ThemeData(
+  static get lightTheme => ThemeData(
         primarySwatch: AppColor.materialPrimarySwatchColor,
         primaryColor: AppColor.primarySwatchColor,
         backgroundColor: AppColor.backgroundColorLight,
         textTheme: TextTheme(
-          bodyText1: TextStyle(color: Colors.black),
-          bodyText2: TextStyle(color: Colors.black, fontSize: 12),
+          bodyText1: TextStyle(color: AppColor.lightMainTextColor),
+          bodyText2:
+              TextStyle(color: AppColor.lightMainTextColor, fontSize: 12),
+          headline6: TextStyle(color: AppColor.lightMainTextColor),
           subtitle1: TextStyle(
-            color: Color.fromRGBO(86, 86, 86, 1),
+            color: AppColor.lightMainTextColor,
           ),
         ),
         brightness: Brightness.light,
@@ -23,11 +25,18 @@ class AppTheme {
           elevation: 10,
           showUnselectedLabels: true,
         ),
+        // checkboxTheme: CheckboxThemeData(
+        //   side: BorderSide(width: 0.8),
+        //   shape: RoundedRectangleBorder(
+        //     borderRadius: BorderRadius.circular(4),
+        //   )
+        // ),
+        dividerColor: Color.fromRGBO(229, 229, 229, 1),
         appBarTheme: AppBarTheme(
-          centerTitle: true,
-          color: Colors.white,
-          brightness: Brightness.light,
-        ),
+            centerTitle: true,
+            color: Colors.white,
+            brightness: Brightness.light,
+            titleTextStyle: TextStyle(color: AppColor.lightMainTextColor)),
         scaffoldBackgroundColor: Colors.white,
         bottomAppBarTheme: BottomAppBarTheme(
           color: Colors.white,
@@ -36,18 +45,20 @@ class AppTheme {
         radioTheme: RadioThemeData(
           splashRadius: 0,
         ),
+        cardColor: AppColor.headerBackgroundColor,
         dataTableTheme: DataTableThemeData(
           decoration: BoxDecoration(),
         ),
       );
 
-  get darkTheme => ThemeData(
+  static get darkTheme =>
+      ThemeData(
         primarySwatch: AppColor.materialPrimarySwatchColor,
         primaryColor: AppColor.primarySwatchColor,
         backgroundColor: AppColor.backgroundColorDark,
         textTheme: TextTheme(
           bodyText1: TextStyle(color: Colors.white),
-          bodyText2: TextStyle(color: Colors.white),
+          bodyText2: TextStyle(color: Colors.white, fontSize: 12),
           subtitle1: TextStyle(color: Colors.grey[200]),
         ),
         brightness: Brightness.dark,

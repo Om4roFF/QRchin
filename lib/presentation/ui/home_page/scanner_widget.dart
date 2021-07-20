@@ -21,7 +21,6 @@ class _ScannerWidgetState extends State<ScannerWidget> {
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   final ImagePicker _picker = ImagePicker();
-  double cutSize = 150;
 
   // In order to get hot reload to work we need to pause the camera if the platform
   // is android, or resume the camera if the platform is iOS.
@@ -74,27 +73,10 @@ class _ScannerWidgetState extends State<ScannerWidget> {
                     ),
                     IconButton(
                       icon: Icon(CustomIcons.flash),
-                      color: Theme
-                          .of(context)
-                          .backgroundColor,
+                      color: Theme.of(context).backgroundColor,
                       onPressed: () async {
                         await controller?.toggleFlash();
                       },
-                    ),
-                    IconButton(
-                      icon: Icon(CustomIcons.doublex),
-                      onPressed: () {
-                        if (cutSize == 150) {
-                          setState(() {
-                            cutSize = 300;
-                          });
-                        } else {
-                          setState(() {
-                            cutSize = 150;
-                          });
-                        }
-                      },
-                      color: Theme.of(context).backgroundColor,
                     ),
                   ],
                 ),
@@ -108,27 +90,32 @@ class _ScannerWidgetState extends State<ScannerWidget> {
 
   void _showDialog(String? result) async {
     final isUrl = await canLaunch(result!);
-    showDialog(context: context, builder: (_) =>
-        AlertDialog(
-          content: InkWell(child: Text('$result',
-            style: TextStyle(color: isUrl ? Colors.blue : Colors.black),),
-            onTap: () {
-              if (isUrl)
-                _launchURL(result);
-            },),
-          actions: [
-            CloseButton(
-              onPressed: () {
-                controller!.resumeCamera();
-                Navigator.pop(context);
+    showDialog(
+      context: context,
+      builder: (_) =>
+          AlertDialog(
+            content: InkWell(
+              child: Text(
+                '$result',
+                style: TextStyle(color: isUrl ? Colors.blue : Colors.black),
+              ),
+              onTap: () {
+                if (isUrl) _launchURL(result);
               },
             ),
-          ],
-        ),);
+            actions: [
+              CloseButton(
+                onPressed: () {
+                  controller!.resumeCamera();
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+    );
   }
 
   Future<void> _launchURL(String url) async => await launch(url);
-
 
   Widget _buildQrView(BuildContext context) {
     // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
@@ -142,7 +129,7 @@ class _ScannerWidgetState extends State<ScannerWidget> {
           borderRadius: 10,
           borderLength: 30,
           borderWidth: 10,
-          cutOutSize: cutSize),
+          cutOutSize: 300),
     );
   }
 

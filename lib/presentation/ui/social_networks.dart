@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:qrching/presentation/utilities/header_widget.dart';
 import 'package:qrching/providers/application_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -30,21 +31,8 @@ class SocialMedia extends StatelessWidget {
           child: Container(
             child: Column(
               children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 14, vertical: 18),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Color.fromRGBO(245, 245, 245, 1),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text(
-                          'Подписывайся на наши каналы, чтобы не пропустить новые розыгрыши!'),
-                    ),
-                  ),
-                ),
+                HeaderWidget(
+                    content: 'Подписывайся на наши каналы, чтобы не пропустить новые розыгрыши!'),
                 GridView.count(
                   shrinkWrap: true,
                   crossAxisCount: 3,

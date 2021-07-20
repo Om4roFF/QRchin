@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qrching/presentation/utilities/header_widget.dart';
 import 'package:qrching/providers/application_provider.dart';
 
 class WinnersPage extends StatelessWidget {
@@ -25,21 +26,9 @@ class WinnersPage extends StatelessWidget {
           child: Container(
             child: Column(
               children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 14, vertical: 18),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Color.fromRGBO(245, 245, 245, 1),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text(
-                          'Здесь представлены последние 100 победителей публичных розыгрышей.'),
-                    ),
-                  ),
-                ),
+                HeaderWidget(
+                    content:
+                        'Здесь представлены последние 100 победителей публичных розыгрышей.'),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 26),
                   child: Row(

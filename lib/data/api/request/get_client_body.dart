@@ -13,4 +13,9 @@ class GetClientBody {
   Map<String, String> toApiHeader() {
     return {'hash': hash};
   }
+
+  @override
+  String toString() {
+    return 'Hash: $hash, country: $country, language: $language';
+  }
 }

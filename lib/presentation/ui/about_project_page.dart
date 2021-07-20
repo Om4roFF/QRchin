@@ -94,19 +94,21 @@ class AboutProjectPage extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: RichText(
                       text: TextSpan(
-                          style: TextStyle(color: Colors.black),
+                          style: Theme.of(context).textTheme.bodyText1,
                           children: [
                             TextSpan(
                               text: nameOfCompany,
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
                             ),
                             TextSpan(
                               text: aboutCompany,
-                              style: TextStyle(fontWeight: FontWeight.normal),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.normal),
                             ),
                             TextSpan(
                               text: lastSentence,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   decoration: TextDecoration.underline),
                             ),

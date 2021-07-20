@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qrching/presentation/ui/privacy_policy.dart';
 import 'package:qrching/presentation/utilities/custom_icons_icons.dart';
 import 'package:qrching/providers/application_provider.dart';
+
+import '../terms_of_use.dart';
 
 class Title {
   final Icon icon;
@@ -75,28 +78,54 @@ class AnotherWidget extends StatelessWidget {
                   },
                   itemCount: titleNames.length),
             ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 21, vertical: 20),
-                child: ListView.separated(
-                    itemBuilder: (context, index) {
-                      return Text(
-                        bottomText[index],
-                        style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            fontWeight: FontWeight.bold),
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return SizedBox(
-                        height: 20,
-                      );
-                    },
-                    itemCount: bottomText.length),
-              ),
+            _Links(
+              title: 'Политика конфиденциальности',
+              toRoute: PrivacyPolicyPage(),
+            ),
+            _Links(
+              title: 'Контактная информация',
+              toRoute: PrivacyPolicyPage(),
+            ),
+            _Links(
+              title: 'Условия использования',
+              toRoute: TermsOfUsePage(),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _Links extends StatelessWidget {
+  final String title;
+  final Widget toRoute;
+
+  const _Links({Key? key, required this.title, required this.toRoute})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+        left: 24,
+        top: 18,
+      ),
+      child: InkWell(
+        child: Text(
+          '$title',
+          style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                fontWeight: FontWeight.bold,
+                decoration: TextDecoration.underline,
+              ),
+        ),
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => toRoute,
+            ),
+          );
+        },
       ),
     );
   }
