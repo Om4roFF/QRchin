@@ -144,13 +144,8 @@ class IntroductionPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(
-              S
-                  .of(context)
-                  .further,
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .bodyText1,
+              S.of(context).further,
+              style: Theme.of(context).textTheme.bodyText1,
             ),
           ],
         ),

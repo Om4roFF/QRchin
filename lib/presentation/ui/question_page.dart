@@ -112,9 +112,9 @@ class _ExpandCard extends StatelessWidget {
                     alignment: Alignment.center,
                     iconColor: Color.fromRGBO(90, 176, 162, 1),
                     iconPadding:
-                    EdgeInsets.only(right: 18, left: 8, top: 8, bottom: 8)
-                  // iconPadding: EdgeInsets.all(16)
-                ),
+                        EdgeInsets.only(right: 18, left: 8, top: 8, bottom: 8)
+                    // iconPadding: EdgeInsets.all(16)
+                    ),
                 header: Padding(
                   padding: const EdgeInsets.only(left: 20, top: 15, bottom: 15),
                   child: Text(

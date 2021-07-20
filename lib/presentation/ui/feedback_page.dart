@@ -54,13 +54,10 @@ class FeedbackPage extends StatelessWidget {
                   child: TextButton(
                     child: Text(
                       'Отправить сообщение',
-                      style: Theme
-                          .of(context)
+                      style: Theme.of(context)
                           .textTheme
                           .bodyText1!
-                          .copyWith(color: Theme
-                          .of(context)
-                          .primaryColorLight),
+                          .copyWith(color: Theme.of(context).primaryColorLight),
                     ),
                     onPressed: () {
                       validateAndSave();
@@ -381,33 +378,28 @@ class __AccessButtonState extends State<_AccessButton> {
   }
 }
 
-class _SendMessage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 20),
-      child: TextButton(
-        child: Text(
-          'Отправить сообщение',
-          style: Theme
-              .of(context)
-              .textTheme
-              .bodyText1!
-              .copyWith(color: Theme
-              .of(context)
-              .primaryColorLight),
-        ),
-        onPressed: () {},
-        style: TextButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
-          minimumSize: Size(double.infinity, 50),
-          backgroundColor: Theme
-              .of(context)
-              .primaryColor,
-        ),
-      ),
-    );
-  }
-}
+// class _SendMessage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       margin: const EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 20),
+//       child: TextButton(
+//         child: Text(
+//           'Отправить сообщение',
+//           style: Theme.of(context)
+//               .textTheme
+//               .bodyText1!
+//               .copyWith(color: Theme.of(context).primaryColorLight),
+//         ),
+//         onPressed: () {},
+//         style: TextButton.styleFrom(
+//           shape: RoundedRectangleBorder(
+//             borderRadius: BorderRadius.circular(5),
+//           ),
+//           minimumSize: Size(double.infinity, 50),
+//           backgroundColor: Theme.of(context).primaryColor,
+//         ),
+//       ),
+//     );
+//   }
+// }

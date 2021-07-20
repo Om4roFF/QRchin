@@ -22,11 +22,7 @@ class PrivacyPolicyPage extends StatelessWidget {
                   children: [
                     TextSpan(
                       text: 'Согласие не обработку персональных данных',
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .bodyText2!
-                          .copyWith(
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
                           decoration: TextDecoration.underline,
                           fontWeight: FontWeight.bold),
                     ),

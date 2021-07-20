@@ -30,14 +30,10 @@ class FirstPage extends StatelessWidget {
               child: FittedBox(
                 fit: BoxFit.fitWidth,
                 child: Text(
-                  S
-                      .of(context)
-                      .free,
+                  S.of(context).free,
                   style: TextStyle(
                     fontSize: 26,
-                    color: Theme
-                        .of(context)
-                        .primaryColor,
+                    color: Theme.of(context).primaryColor,
                   ),
                 ),
               ),
