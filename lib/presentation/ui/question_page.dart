@@ -2,7 +2,6 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:qrching/presentation/utilities/custom_icons_icons.dart';
 import 'package:qrching/providers/application_provider.dart';
 
 class QuestionPage extends StatelessWidget {
@@ -32,29 +31,42 @@ class QuestionPage extends StatelessWidget {
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.only(top: 25),
-                    child: Text('Общие вопросы', style: Theme
-                        .of(context)
-                        .textTheme
-                        .headline6,),
+                    child: Text(
+                      'Общие вопросы',
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
                   ),
                 ),
                 _ExpandCard(
-                  title: 'Что такое платформа QRching?', body: loremIpsum,),
-                _ExpandCard(title: 'Что такое QR-код?', body: loremIpsum,),
-                _ExpandCard(title: 'Что такое блокчейн?', body: loremIpsum,),
-                _ExpandCard(title: 'Что такое хеш-функция?', body: loremIpsum,),
+                  title: 'Что такое платформа QRching?',
+                  body: loremIpsum,
+                ),
+                _ExpandCard(
+                  title: 'Что такое QR-код?',
+                  body: loremIpsum,
+                ),
+                _ExpandCard(
+                  title: 'Что такое блокчейн?',
+                  body: loremIpsum,
+                ),
+                _ExpandCard(
+                  title: 'Что такое хеш-функция?',
+                  body: loremIpsum,
+                ),
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.only(top: 25),
-                    child: Text('Для участников', style: Theme
-                        .of(context)
-                        .textTheme
-                        .headline6,),
+                    child: Text(
+                      'Для участников',
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
                   ),
                 ),
                 _ExpandCard(
-                  title: 'Что необходимо сделать, чтобы принять участие в розыгрыше?',
-                  body: loremIpsum,),
+                  title:
+                      'Что необходимо сделать, чтобы принять участие в розыгрыше?',
+                  body: loremIpsum,
+                ),
               ],
             ),
           ),
@@ -68,7 +80,6 @@ const loremIpsum =
     "QR переводится с английского как \"Quick Response\", то есть \"быстрый отклик\". QR-код это духмерный штрихкод с информацией, которая может быть распознана с помощью камеры смартфона.";
 
 class _ExpandCard extends StatelessWidget {
-
   final String title;
   final String body;
 
@@ -133,6 +144,7 @@ class _ExpandCard extends StatelessWidget {
             ),
           ],
         ),
-      ),);
+      ),
+    );
   }
 }

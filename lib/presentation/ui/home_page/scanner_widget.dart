@@ -92,26 +92,25 @@ class _ScannerWidgetState extends State<ScannerWidget> {
     final isUrl = await canLaunch(result!);
     showDialog(
       context: context,
-      builder: (_) =>
-          AlertDialog(
-            content: InkWell(
-              child: Text(
-                '$result',
-                style: TextStyle(color: isUrl ? Colors.blue : Colors.black),
-              ),
-              onTap: () {
-                if (isUrl) _launchURL(result);
-              },
-            ),
-            actions: [
-              CloseButton(
-                onPressed: () {
-                  controller!.resumeCamera();
-                  Navigator.pop(context);
-                },
-              ),
-            ],
+      builder: (_) => AlertDialog(
+        content: InkWell(
+          child: Text(
+            '$result',
+            style: TextStyle(color: isUrl ? Colors.blue : Colors.black),
           ),
+          onTap: () {
+            if (isUrl) _launchURL(result);
+          },
+        ),
+        actions: [
+          CloseButton(
+            onPressed: () {
+              controller!.resumeCamera();
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      ),
     );
   }
 

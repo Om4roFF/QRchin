@@ -9,8 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:qrching/domain/cubit/user_cubit.dart';
-import 'package:qrching/domain/model/client_body.dart';
 import 'package:qrching/generated/l10n.dart';
 import 'package:qrching/internal/dependencies/user_state_module.dart';
 import 'package:qrching/presentation/ui/home_page/home_page.dart';
@@ -97,11 +95,11 @@ class IntroductionPage extends StatelessWidget {
                     onPressed: () => _switchTheme(context),
                     icon: valueTheme(context)
                         ? Icon(
-                      Icons.light_mode,
-                    )
+                            Icons.light_mode,
+                          )
                         : Icon(
-                      Icons.dark_mode,
-                    ),
+                            Icons.dark_mode,
+                          ),
                   ),
                 ),
               ),

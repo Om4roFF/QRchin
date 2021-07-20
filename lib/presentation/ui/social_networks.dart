@@ -32,7 +32,8 @@ class SocialMedia extends StatelessWidget {
             child: Column(
               children: [
                 HeaderWidget(
-                    content: 'Подписывайся на наши каналы, чтобы не пропустить новые розыгрыши!'),
+                    content:
+                        'Подписывайся на наши каналы, чтобы не пропустить новые розыгрыши!'),
                 GridView.count(
                   shrinkWrap: true,
                   crossAxisCount: 3,

@@ -51,8 +51,7 @@ class AppTheme {
         ),
       );
 
-  static get darkTheme =>
-      ThemeData(
+  static get darkTheme => ThemeData(
         primarySwatch: AppColor.materialPrimarySwatchColor,
         primaryColor: AppColor.primarySwatchColor,
         backgroundColor: AppColor.backgroundColorDark,

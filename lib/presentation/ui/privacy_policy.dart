@@ -15,8 +15,7 @@ class PrivacyPolicyPage extends StatelessWidget {
             padding: const EdgeInsets.all(22),
             child: RichText(
               text: TextSpan(
-                  style: Theme
-                      .of(context)
+                  style: Theme.of(context)
                       .textTheme
                       .bodyText2!
                       .copyWith(fontWeight: FontWeight.normal),
@@ -56,7 +55,8 @@ class PrivacyPolicyPage extends StatelessWidget {
                             '- твои права- право на подачу жалобы;\n\n'
                             '- внесение изменений в заявление о конфиденциальности.\n\n\n'),
                     TextSpan(
-                      text: 'Области применения заявления о конфиденциальности\n\n',
+                      text:
+                      'Области применения заявления о конфиденциальности\n\n',
                       style: Theme
                           .of(context)
                           .textTheme

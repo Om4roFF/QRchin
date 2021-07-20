@@ -1,9 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qrching/domain/cubit/user_cubit.dart';
-import 'package:qrching/domain/cubit/user_state.dart';
-import 'package:qrching/domain/model/client_body.dart';
 import 'package:qrching/presentation/utilities/tooltip_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -46,7 +42,7 @@ class _ReviewTable extends StatelessWidget {
       "Number": "1",
       "Site": {
         "icon":
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Circle-icons-camera.svg/1200px-Circle-icons-camera.svg.png",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Circle-icons-camera.svg/1200px-Circle-icons-camera.svg.png",
         "name": "Instagram",
         "url": "www.youtube..com",
       },

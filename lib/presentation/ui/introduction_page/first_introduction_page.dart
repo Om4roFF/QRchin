@@ -17,12 +17,8 @@ class FirstPage extends StatelessWidget {
               child: FittedBox(
                 fit: BoxFit.fitWidth,
                 child: Text(
-                  S
-                      .of(context)
-                      .scan_and_win,
-                  style:
-                  Theme
-                      .of(context)
+                  S.of(context).scan_and_win,
+                  style: Theme.of(context)
                       .textTheme
                       .subtitle1!
                       .copyWith(fontSize: 26),
