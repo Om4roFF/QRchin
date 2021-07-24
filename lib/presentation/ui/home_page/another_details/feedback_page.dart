@@ -346,8 +346,8 @@ class __AccessButtonState extends State<_AccessButton> {
             TextSpan(text: ' и '),
             TextSpan(
                 text: 'Условия обработки персональных данных. *',
-                    style: TextStyle(fontWeight: FontWeight.bold))
-              ]),
+                style: TextStyle(fontWeight: FontWeight.bold))
+          ]),
         ),
         value: checkedValue,
         onChanged: (newValue) {
@@ -356,7 +356,7 @@ class __AccessButtonState extends State<_AccessButton> {
           });
         },
         controlAffinity:
-        ListTileControlAffinity.leading, //  <-- leading Checkbox
+            ListTileControlAffinity.leading, //  <-- leading Checkbox
       ),
     );
   }
