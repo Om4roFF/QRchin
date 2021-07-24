@@ -246,13 +246,12 @@ class _ThemeOfMessage extends StatelessWidget {
       itemBuilder: (context) {
         final list = List.generate(
           popUpText.length,
-              (index) =>
-              PopupMenuItem(
-                child: SizedBox(
-                  width: 600,
-                  child: Text(popUpText[index]),
-                ),
-              ),
+          (index) => PopupMenuItem(
+            child: SizedBox(
+              width: 600,
+              child: Text(popUpText[index]),
+            ),
+          ),
         );
         return list;
       },
