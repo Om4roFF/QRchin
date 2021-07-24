@@ -334,15 +334,11 @@ class __AccessButtonState extends State<_AccessButton> {
       child: CheckboxListTile(
         title: RichText(
           text:
-          TextSpan(style: Theme
-              .of(context)
-              .textTheme
-              .bodyText2, children: [
+              TextSpan(style: Theme.of(context).textTheme.bodyText2, children: [
             TextSpan(text: 'Я прочитал(а) и принимаю условия '),
             TextSpan(
               text: 'Политики конфиденциальности',
-              style: Theme
-                  .of(context)
+              style: Theme.of(context)
                   .textTheme
                   .bodyText2!
                   .copyWith(fontWeight: FontWeight.bold),
@@ -350,8 +346,8 @@ class __AccessButtonState extends State<_AccessButton> {
             TextSpan(text: ' и '),
             TextSpan(
                 text: 'Условия обработки персональных данных. *',
-                style: TextStyle(fontWeight: FontWeight.bold))
-          ]),
+                    style: TextStyle(fontWeight: FontWeight.bold))
+              ]),
         ),
         value: checkedValue,
         onChanged: (newValue) {
