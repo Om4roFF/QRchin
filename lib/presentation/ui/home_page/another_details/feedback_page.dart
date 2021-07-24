@@ -106,9 +106,7 @@ class _AppealForm extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
           border: Border.all(
             width: 1,
-            color: Theme
-                .of(context)
-                .dividerColor,
+            color: Theme.of(context).dividerColor,
           ),
         ),
         child: ListTile(

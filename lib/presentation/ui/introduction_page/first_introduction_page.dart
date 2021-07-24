@@ -63,14 +63,10 @@ class FirstPage extends StatelessWidget {
                 child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      S
-                          .of(context)
-                          .choose_lang,
+                      S.of(context).choose_lang,
                       style: TextStyle(
                         fontSize: 12,
-                        color: Theme
-                            .of(context)
-                            .primaryColor,
+                        color: Theme.of(context).primaryColor,
                       ),
                     )),
               ),
