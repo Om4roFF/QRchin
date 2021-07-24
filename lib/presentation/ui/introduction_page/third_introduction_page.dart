@@ -172,22 +172,6 @@ class _ContentBigSize extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                ClipRRect(
-                  child: Container(
-                    color: Theme.of(context).dialogBackgroundColor,
-                    child: Text(
-                      '${index + 1}',
-                      style: TextStyle(fontSize: 12),
-                    ),
-                    width: 20,
-                    height: 20,
-                    alignment: Alignment.center,
-                  ),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                SizedBox(
-                  width: 4,
-                ),
                 RichText(
                   text: TextSpan(
                     children: [

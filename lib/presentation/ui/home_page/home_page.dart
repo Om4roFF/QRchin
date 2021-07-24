@@ -1,28 +1,26 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:qrching/domain/cubit/user_cubit.dart';
 import 'package:qrching/domain/cubit/user_state.dart';
-import 'package:qrching/domain/model/client_body.dart';
-import 'package:qrching/presentation/ui/about_project_page.dart';
-import 'package:qrching/presentation/ui/feedback_page.dart';
-import 'package:qrching/presentation/ui/home_page/review_widget.dart';
-import 'package:qrching/presentation/ui/home_page/scanner_widget.dart';
-import 'package:qrching/presentation/ui/question_page.dart';
-import 'package:qrching/presentation/ui/settings.dart';
-import 'package:qrching/presentation/ui/social_networks.dart';
 import 'package:qrching/presentation/utilities/custom_icons_icons.dart';
 import 'package:qrching/providers/application_provider.dart';
 import 'package:qrching/providers/draw_creation_prvider.dart';
+import 'package:qrching/providers/question_provider.dart';
 
-import '../stats_page.dart';
-import '../winners_page.dart';
-import 'another_widget.dart';
-import 'create_widget.dart';
-import 'history_widget.dart';
+import 'another_details/about_project_page.dart';
+import 'another_details/another_widget.dart';
+import 'another_details/feedback_page.dart';
+import 'another_details/question_page.dart';
+import 'another_details/settings.dart';
+import 'another_details/social_networks.dart';
+import 'another_details/stats_page.dart';
+import 'another_details/winners_page.dart';
+import 'create_details/create_widget.dart';
+import 'history_details/history_widget.dart';
+import 'review_details/review_widget.dart';
+import 'scan_details/scanner_widget.dart';
 
 class HomePage extends StatelessWidget {
   final GlobalKey<NavigatorState> createWidgetKey = GlobalKey<NavigatorState>();
@@ -47,7 +45,10 @@ class HomePage extends StatelessWidget {
     WinnersPage(),
     StatisticPage(),
     SocialMedia(),
-    QuestionPage(),
+    ChangeNotifierProvider(
+      child: QuestionPage(),
+      create: (context) => QuestionProvider(),
+    ),
     FeedbackPage(),
     SettingsPage(),
   ];
@@ -99,16 +100,20 @@ class HomePage extends StatelessWidget {
       ),
       bottomNavigationBar: BottomNavigationBar(
         // unselectedFontSize: 10,
+        selectedFontSize: 12,
+        unselectedFontSize: 12,
         enableFeedback: true,
         type: BottomNavigationBarType.fixed,
         elevation: 6,
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme
+            .of(context)
+            .backgroundColor,
         onTap: (index) => _onTap(index, context),
         currentIndex: context.select(
-                    (ApplicationProvider app) => app.getNavigationIndex) <
-                5
+                (ApplicationProvider app) => app.getNavigationIndex) <
+            5
             ? context
-                .select((ApplicationProvider app) => app.getNavigationIndex)
+            .select((ApplicationProvider app) => app.getNavigationIndex)
             : 4,
         items: [
           BottomNavigationBarItem(

@@ -29,30 +29,74 @@ class WinnersPage extends StatelessWidget {
                 HeaderWidget(
                     content:
                         'Здесь представлены последние 100 победителей публичных розыгрышей.'),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 26),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Expanded(
-                        child: Text('№'),
-                        flex: 1,
-                      ),
-                      Expanded(
-                        child: Text('Выигрыш'),
-                        flex: 2,
-                      ),
-                      Expanded(
-                        child: Text('Дата'),
-                        flex: 2,
-                      ),
-                      Expanded(
-                        child: Text('Победитель'),
-                        flex: 2,
-                      ),
-                    ],
+                Card(
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide.none,
+                  ),
+                  color: Theme.of(context).primaryColorLight,
+                  elevation: 0,
+                  margin: EdgeInsets.only(left: 13, right: 13, top: 10),
+                  child: Container(
+                    width: double.infinity,
+                    height: 30,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Text('№')),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 20, right: 10),
+                            child: Text(
+                              'Выигрыш',
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                            flex: 2,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 20),
+                              child: Text('Дата'),
+                            )),
+                        Expanded(
+                          flex: 3,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 30),
+                            child: Text('Победитель'),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 26),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+                //     children: [
+                //       Expanded(
+                //         child: Text('№'),
+                //         flex: 1,
+                //       ),
+                //       Expanded(
+                //         child: Text('Выигрыш'),
+                //         flex: 2,
+                //       ),
+                //       Expanded(
+                //         child: Text('Дата'),
+                //         flex: 2,
+                //       ),
+                //       Expanded(
+                //         child: Text('Победитель'),
+                //         flex: 2,
+                //       ),
+                //     ],
+                //   ),
+                // ),
                 ListView.builder(
                     itemCount: 2,
                     shrinkWrap: true,

@@ -4,7 +4,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:qrching/domain/model/client_body.dart';
 import 'package:qrching/generated/l10n.dart';
 import 'package:qrching/internal/dependencies/user_state_module.dart';
 import 'package:qrching/presentation/utilities/application.dart';
@@ -89,9 +88,32 @@ class VideoState extends State<Splash> with SingleTickerProviderStateMixin {
       body: Container(
         // width: 1080,
         // height: 1520,
-        child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 60),
-            child: VideoPlayer(_controller!)),
+        alignment: Alignment.center,
+        child: AspectRatio(
+          aspectRatio: 0.6,
+          child: VideoPlayer(_controller!),
+        ),
+        // child: LayoutBuilder(
+        //   builder: (BuildContext context, BoxConstraints constraints) {
+        //     print('MAX HEIGHT: ${constraints.maxHeight}');
+        //     print('MAX WIDTH: ${constraints.maxWidth}');
+        //     print('MIN HEIGHT: ${constraints.minHeight}');
+        //     print('MIN WIDTH: ${constraints.minWidth}');
+        //     double verticalPadding = 0;
+        //     final double diagonal =
+        //         constraints.maxHeight / constraints.maxWidth;
+        //     if (!(diagonal <= 1.6)) {
+        //       final double ratio = diagonal / 1.6;
+        //       final s = ratio - 1;
+        //       verticalPadding = ((s * 120) / 0.31) / 2;
+        //       print(verticalPadding);
+        //     }
+        //     return Padding(
+        //       padding: EdgeInsets.symmetric(vertical: verticalPadding),
+        //       child: VideoPlayer(_controller!),
+        //     );
+        //   },
+        // ),
       ),
     );
   }

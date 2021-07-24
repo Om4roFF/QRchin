@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ApplicationProvider extends ChangeNotifier {
   String _lang = 'en';
-  int _navigationMenuIndex = 1;
+  int _navigationMenuIndex = 2;
   bool _isDark = false;
 
   ApplicationProvider(this._isDark, this._lang);
@@ -26,8 +26,5 @@ class ApplicationProvider extends ChangeNotifier {
 
   int get getNavigationIndex => this._navigationMenuIndex;
 
-  bool getDarkMode() {
-    print(this._isDark);
-    return this._isDark;
-  }
+  bool getDarkMode() => this._isDark;
 }

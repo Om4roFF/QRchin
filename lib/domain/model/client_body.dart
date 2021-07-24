@@ -3,7 +3,7 @@ class ClientBody {
   final String language;
   final String country;
 
-  ClientBody(
+  const ClientBody(
       {required this.hash, required this.language, required this.country});
 
   factory ClientBody.empty() {

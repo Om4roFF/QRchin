@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:qrching/presentation/utilities/tooltip_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ReviewWidget extends StatelessWidget {
@@ -81,41 +80,78 @@ class _ReviewTable extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 26),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                  child: MyTooltip(
-                    message: 'Номер розыгрыш',
-                    child: Text('№'),
+          Card(
+            shape: RoundedRectangleBorder(
+              side: BorderSide.none,
+            ),
+            color: Theme.of(context).primaryColorLight,
+            elevation: 0,
+            margin: EdgeInsets.only(left: 13, right: 13, top: 10),
+            child: Container(
+              width: double.infinity,
+              height: 30,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Tooltip(
+                      message: '${0 + 1}',
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Text('№'),
+                      ),
+                    ),
                   ),
-                  flex: 2,
-                ),
-                Expanded(
-                  child: MyTooltip(
-                    message:
-                    'Страница или канал спонсора, где находится QR-код',
-                    child: Text('Сайт'),
+                  Expanded(
+                    flex: 8,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Expanded(
+                          child: Tooltip(
+                            message:
+                                'Страница или канал спонсора, где находится QR-код',
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  "Сайт",
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  flex: 3,
-                ),
-                Expanded(
-                  child: MyTooltip(
-                    message: 'Бюджет розыгрыша',
-                    child: Text('Бюджет'),
+                  Expanded(
+                    flex: 4,
+                    child: Tooltip(
+                      message: 'Бюджет розыгрыша',
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 15, right: 0),
+                        child: Text(
+                          'Бюджет',
+                        ),
+                      ),
+                    ),
                   ),
-                  flex: 2,
-                ),
-                Expanded(
-                  child: MyTooltip(
-                    message: 'Количество денежных призов розыгрыша',
-                    child: Text('Призы'),
+                  Expanded(
+                    flex: 3,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Tooltip(
+                        message: 'Количество денежных призов розыгрыша',
+                        child: Text(
+                          'Призы',
+                        ),
+                      ),
+                    ),
                   ),
-                  flex: 1,
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           ListView.builder(

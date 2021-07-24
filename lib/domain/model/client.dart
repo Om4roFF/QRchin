@@ -9,7 +9,7 @@ class Client {
   final String? updatedAt;
   final String? errorMessage;
 
-  Client(
+  const Client(
       {required this.id,
       required this.hash,
       required this.language,

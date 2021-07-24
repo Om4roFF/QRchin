@@ -67,9 +67,7 @@ class FeedbackPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5),
                       ),
                       minimumSize: Size(double.infinity, 50),
-                      backgroundColor: Theme
-                          .of(context)
-                          .primaryColor,
+                      backgroundColor: Theme.of(context).primaryColor,
                     ),
                   ),
                 ),

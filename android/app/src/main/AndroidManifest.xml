@@ -4,8 +4,8 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CAMERA"/>
    <application
-        android:label="qrching"
-        android:icon="@mipmap/ic_launcher">
+        android:label="QRching"
+       android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

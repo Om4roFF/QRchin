@@ -70,9 +70,6 @@ class IntroductionPage extends StatelessWidget {
     Provider.of<ApplicationProvider>(context, listen: false)
         .setThemeMode(!currentTheme);
     Application.setDarkTheme(!currentTheme);
-    print('*' * 100);
-    print(MediaQuery.of(context).size.width);
-    print('*' * 100);
   }
 
   bool valueTheme(context) {
@@ -153,19 +150,14 @@ class IntroductionPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(
-              S
-                  .of(context)
-                  .done,
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .bodyText1,
+              S.of(context).done,
+              style: Theme.of(context).textTheme.bodyText1,
             ),
           ],
         ),
         curve: Curves.fastLinearToSlowEaseIn,
         controlsMargin:
-        const EdgeInsets.only(right: 0, left: 0, bottom: 0, top: 0),
+            const EdgeInsets.only(right: 0, left: 0, bottom: 0, top: 0),
         isTopSafeArea: true,
         controlsPadding: kIsWeb
             ? const EdgeInsets.all(15.0)
