@@ -202,9 +202,7 @@ InputBorder _onFocused(BuildContext context) {
 
 InputBorder _enabled(BuildContext context) {
   return OutlineInputBorder(
-    borderSide: BorderSide(color: Theme
-        .of(context)
-        .dividerColor),
+    borderSide: BorderSide(color: Theme.of(context).dividerColor),
     borderRadius: BorderRadius.circular(5),
   );
 }
