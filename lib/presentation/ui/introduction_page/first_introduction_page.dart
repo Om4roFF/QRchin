@@ -51,9 +51,7 @@ class FirstPage extends StatelessWidget {
             Flexible(
               flex: 1,
               child: Text(
-                S
-                    .of(context)
-                    .intro_page_1_content,
+                S.of(context).intro_page_1_content,
                 style: TextStyle(fontSize: 14),
                 textAlign: TextAlign.center,
               ),

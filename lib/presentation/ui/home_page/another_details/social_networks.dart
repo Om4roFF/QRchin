@@ -165,9 +165,8 @@ class SocialMedia extends StatelessWidget {
                     Column(
                       children: [
                         InkWell(
-                          onTap: () =>
-                              _launchURL(
-                                  'https://www.linkedin.com/company/qrching'),
+                          onTap: () => _launchURL(
+                              'https://www.linkedin.com/company/qrching'),
                           child: Image.asset(
                             'assets/svg_logo/Linkedin.png',
                             width: 50,

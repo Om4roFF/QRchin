@@ -144,10 +144,7 @@ class _ScannerWidgetState extends State<ScannerWidget> {
     // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
     // To ensure the Scanner view is properly sizes after rotation
     // we need to listen for Flutter SizeChanged notification and update controller
-    final width = MediaQuery
-        .of(context)
-        .size
-        .width;
+    final width = MediaQuery.of(context).size.width;
     return QRView(
       key: qrKey,
       onQRViewCreated: _onQRViewCreated,

@@ -229,14 +229,12 @@ class _ReviewTable extends StatelessWidget {
                               message: '145\$',
                               child: Padding(
                                 padding:
-                                const EdgeInsets.only(left: 20, right: 10),
+                                    const EdgeInsets.only(left: 20, right: 10),
                                 child: Text(
                                   '145\$',
                                   style: TextStyle(
                                       fontSize: 20,
-                                      color: Theme
-                                          .of(context)
-                                          .primaryColor,
+                                      color: Theme.of(context).primaryColor,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),

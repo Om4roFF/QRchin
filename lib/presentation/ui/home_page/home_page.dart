@@ -105,15 +105,13 @@ class HomePage extends StatelessWidget {
         enableFeedback: true,
         type: BottomNavigationBarType.fixed,
         elevation: 6,
-        backgroundColor: Theme
-            .of(context)
-            .backgroundColor,
+        backgroundColor: Theme.of(context).backgroundColor,
         onTap: (index) => _onTap(index, context),
         currentIndex: context.select(
-                (ApplicationProvider app) => app.getNavigationIndex) <
-            5
+                    (ApplicationProvider app) => app.getNavigationIndex) <
+                5
             ? context
-            .select((ApplicationProvider app) => app.getNavigationIndex)
+                .select((ApplicationProvider app) => app.getNavigationIndex)
             : 4,
         items: [
           BottomNavigationBarItem(

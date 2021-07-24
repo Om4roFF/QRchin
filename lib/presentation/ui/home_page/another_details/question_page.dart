@@ -161,10 +161,11 @@ class _ExpandCard extends StatelessWidget {
   final String body;
   final ExpandableController controller;
 
-  const _ExpandCard({Key? key,
-    required this.title,
-    required this.body,
-    required this.controller})
+  const _ExpandCard(
+      {Key? key,
+      required this.title,
+      required this.body,
+      required this.controller})
       : super(key: key);
 
   @override

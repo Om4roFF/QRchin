@@ -52,9 +52,8 @@ class PrivacyPolicyPage extends StatelessWidget {
                             '- внесение изменений в заявление о конфиденциальности.\n\n\n'),
                     TextSpan(
                       text:
-                      'Области применения заявления о конфиденциальности\n\n',
-                      style: Theme
-                          .of(context)
+                          'Области применения заявления о конфиденциальности\n\n',
+                      style: Theme.of(context)
                           .textTheme
                           .bodyText2!
                           .copyWith(fontWeight: FontWeight.bold),
