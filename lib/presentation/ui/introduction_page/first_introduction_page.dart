@@ -96,9 +96,7 @@ class _DropDownLanguageButton extends StatelessWidget {
             icon: Icon(
               Icons.keyboard_arrow_down_rounded,
             ),
-            value: context
-                .watch<ApplicationProvider>()
-                .getLang,
+            value: context.watch<ApplicationProvider>().getLang,
             onChanged: (newValue) {
               Provider.of<ApplicationProvider>(context, listen: false)
                   .setLang(newValue!);

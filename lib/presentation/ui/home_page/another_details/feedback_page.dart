@@ -195,9 +195,7 @@ InputBorder _onFocused(BuildContext context) {
   return OutlineInputBorder(
     borderRadius: BorderRadius.circular(5),
     borderSide: BorderSide(
-      color: Theme
-          .of(context)
-          .primaryColor,
+      color: Theme.of(context).primaryColor,
     ),
   );
 }
