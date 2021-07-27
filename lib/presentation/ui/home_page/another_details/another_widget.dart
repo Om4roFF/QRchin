@@ -37,11 +37,11 @@ class AnotherWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: SingleChildScrollView(
-        child: Container(
+      child: Container(
+        child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            // mainAxisAlignment: MainAxisAlignment.start,
+            // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
                 child: Padding(
@@ -58,12 +58,14 @@ class AnotherWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 21),
                 child: ListView.separated(
+                    scrollDirection: Axis.vertical,
+                    physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return ListTile(
                         onTap: () {
                           Provider.of<ApplicationProvider>(context,
-                                  listen: false)
+                              listen: false)
                               .setNavigationMenuIndex(index + 5);
                         },
                         dense: false,
@@ -92,6 +94,9 @@ class AnotherWidget extends StatelessWidget {
                 title: 'Условия использования',
                 toRoute: TermsOfUsePage(),
               ),
+              SizedBox(
+                height: 20,
+              )
             ],
           ),
         ),
@@ -110,17 +115,18 @@ class _Links extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-        left: 24,
-        top: 18,
-      ),
+      padding: const EdgeInsets.only(left: 24, top: 18),
       child: InkWell(
         child: Text(
           '$title',
-          style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                fontWeight: FontWeight.bold,
-                decoration: TextDecoration.underline,
-              ),
+          style: Theme
+              .of(context)
+              .textTheme
+              .bodyText1!
+              .copyWith(
+            fontWeight: FontWeight.bold,
+            decoration: TextDecoration.underline,
+          ),
         ),
         onTap: () {
           Navigator.of(context).push(

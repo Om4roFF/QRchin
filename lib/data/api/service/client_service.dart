@@ -2,7 +2,9 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:qrching/data/api/model/api_client.dart';
+import 'package:qrching/data/api/model/api_draw.dart';
 import 'package:qrching/data/api/request/get_client_body.dart';
+import 'package:qrching/data/api/request/get_draws_body.dart';
 
 class ClientService {
   static const _BASE_URL = 'https://qrching.com/api';
@@ -20,10 +22,33 @@ class ClientService {
     );
     log('RESPONSE STATUS CODE: ${response.statusCode}');
     log('RESPONSE BODY: ${response.data}');
-    if (response.statusCode == 201 || response.statusCode == 422) {
+    if (response.statusCode == 201) {
+      return ApiClient.fromJson(response.data);
+    } else if (response.statusCode == 422) {
       return ApiClient.fromJson(response.data);
     } else {
-      return ApiClient.fromJson(response.data);
+      throw Exception(
+          'Create client: code = ${response.statusCode}, body = ${response.data}');
+    }
+  }
+
+  Future<ApiDraws> scanQR(GetDrawsBody getDrawsBody) async {
+    print(getDrawsBody.toApiHeader());
+    final response = await _dio.post(
+      '/draws/${getDrawsBody.qrCode}',
+      options: Options(
+        headers: getDrawsBody.toApiHeader(),
+      ),
+    );
+    log('RESPONSE STATUS CODE: ${response.statusCode}');
+    log('RESPONSE BODY: ${response.data}');
+    if (response.statusCode == 201) {
+      return ApiDraws.fromJson(response.data);
+    } else if (response.statusCode == 403) {
+      return ApiDraws.fromJson(response.data);
+    } else {
+      throw Exception(
+          'Scan QR Exception: code = ${response.statusCode}, body = ${response.data}');
     }
   }
 }

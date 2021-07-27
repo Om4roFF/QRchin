@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:qrching/domain/constants.dart';
 import 'package:qrching/domain/model/history.dart';
+import 'package:qrching/presentation/utilities/application.dart';
 
 import 'history_view_page.dart';
 
@@ -40,8 +40,7 @@ class _HistoryListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-        valueListenable:
-            Hive.box<History>(AppConstants.historyBox).listenable(),
+        valueListenable: Hive.box<History>(Application.historyBox).listenable(),
         builder: (BuildContext context, Box<History> historyBox, _) {
           if (historyBox.values.isEmpty) {
             return Container();
@@ -50,7 +49,7 @@ class _HistoryListView extends StatelessWidget {
             child: ListView.builder(
                 itemCount: historyBox.values.length,
                 itemBuilder: (context, index) {
-                  final res = historyBox.getAt(index);
+                  final History? res = historyBox.getAt(index);
                   return Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -76,7 +75,19 @@ class _HistoryListView extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       ),
-                      trailing: Icon(Icons.more_vert),
+                      trailing: PopupMenuButton(
+                        itemBuilder: (BuildContext context) => [
+                          PopupMenuItem(
+                            child: Text('Удалить'),
+                            value: 0,
+                          ),
+                        ],
+                        onSelected: (item) {
+                          if (item == 0) {
+                            historyBox.deleteAt(index);
+                          }
+                        },
+                      ),
                     ),
                   );
                 }),

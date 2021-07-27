@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qrching/presentation/ui/home_page/another_details/privacy_policy.dart';
+import 'package:qrching/presentation/ui/home_page/another_details/terms_of_use.dart';
 import 'package:qrching/presentation/utilities/header_widget.dart';
 import 'package:qrching/providers/application_provider.dart';
 
@@ -330,34 +332,94 @@ class __AccessButtonState extends State<_AccessButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 10),
-      child: CheckboxListTile(
-        title: RichText(
-          text:
-              TextSpan(style: Theme.of(context).textTheme.bodyText2, children: [
-            TextSpan(text: 'Я прочитал(а) и принимаю условия '),
-            TextSpan(
-              text: 'Политики конфиденциальности',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText2!
-                  .copyWith(fontWeight: FontWeight.bold),
+      margin: const EdgeInsets.only(top: 10, left: 2, right: 2),
+      child: Row(
+        children: [
+          Checkbox(
+              side: BorderSide(
+                width: 0.7,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(4),
+              ),
+              value: checkedValue,
+              onChanged: (newValue) {
+                setState(() {
+                  checkedValue = newValue!;
+                });
+              }),
+          Expanded(
+            child: RichText(
+              text: TextSpan(
+                  style: Theme.of(context).textTheme.bodyText2,
+                  children: [
+                    TextSpan(text: 'Я прочитал(а) и принимаю условия '),
+                    WidgetSpan(
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => PrivacyPolicyPage(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'Политики конфиденциальности',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                    TextSpan(text: ' и '),
+                    WidgetSpan(
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => TermsOfUsePage(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'Условия обработки персональных данных. *',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ]),
             ),
-            TextSpan(text: ' и '),
-            TextSpan(
-                text: 'Условия обработки персональных данных. *',
-                style: TextStyle(fontWeight: FontWeight.bold))
-          ]),
-        ),
-        value: checkedValue,
-        onChanged: (newValue) {
-          setState(() {
-            checkedValue = newValue!;
-          });
-        },
-        controlAffinity:
-            ListTileControlAffinity.leading, //  <-- leading Checkbox
+          ),
+        ],
       ),
+      // child: CheckboxListTile(
+      //   title: RichText(
+      //     text:
+      //         TextSpan(style: Theme.of(context).textTheme.bodyText2, children: [
+      //       TextSpan(text: 'Я прочитал(а) и принимаю условия '),
+      //       TextSpan(
+      //         text: 'Политики конфиденциальности',
+      //         onEnter: (point) {
+      //           print(point);
+      //         },
+      //         style: Theme.of(context)
+      //             .textTheme
+      //             .bodyText2!
+      //             .copyWith(fontWeight: FontWeight.bold),
+      //       ),
+      //       TextSpan(text: ' и '),
+      //       TextSpan(
+      //           text: 'Условия обработки персональных данных. *',
+      //           style: TextStyle(fontWeight: FontWeight.bold))
+      //     ]),
+      //   ),
+      //   value: checkedValue,
+      //   onChanged: (newValue) {
+      //     setState(() {
+      //       checkedValue = newValue!;
+      //     });
+      //   },
+      //   controlAffinity:
+      //       ListTileControlAffinity.leading, //  <-- leading Checkbox
+      // ),
     );
   }
 }

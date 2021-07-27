@@ -52,7 +52,7 @@ class FirstPage extends StatelessWidget {
               flex: 1,
               child: Text(
                 S.of(context).intro_page_1_content,
-                style: TextStyle(fontSize: 14),
+                // style: TextStyle(fontSize: 14),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -65,7 +65,7 @@ class FirstPage extends StatelessWidget {
                     child: Text(
                       S.of(context).choose_lang,
                       style: TextStyle(
-                        fontSize: 12,
+                        // fontSize: 12,
                         color: Theme.of(context).primaryColor,
                       ),
                     )),

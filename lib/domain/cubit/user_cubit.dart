@@ -22,10 +22,10 @@ class UserCubit extends Cubit<UserState> {
   late String _country;
 
   void initializeClientData() async {
-    final bool isClient = await Application.isClient();
+    final bool isClient = Application.isClient();
     if (isClient) {
-      _hash = await Application.getClientHash();
-      _language = await Application.getLanguage();
+      _hash = Application.getClientHash();
+      _language = Application.getLanguage();
       emit(UserLoadedState());
     } else {
       _createClient();
@@ -36,7 +36,7 @@ class UserCubit extends Cubit<UserState> {
     try {
       emit(UserLoadingState());
       final Client client = await _clientRepository.createClient(
-          hash: _hash, language: _language, country: _country);
+          hash: _hash!, language: _language!, country: _country);
       log('CLIENT RESPONSE: ${client.toString()}');
       if (client.errorMessage != null)
         emit(UserErrorState());

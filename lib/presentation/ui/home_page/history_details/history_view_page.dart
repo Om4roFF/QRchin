@@ -159,12 +159,13 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
         //     color: Colors.green[900],
         //   ),
         // ),
-        Positioned(
-          top: 30,
-          left: 5,
-          child: Image.asset(
-            'assets/images/main-4.png',
-            fit: BoxFit.cover,
+        SafeArea(
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Image.asset(
+              'assets/images/main-4.png',
+              fit: BoxFit.cover,
+            ),
           ),
         ),
         SafeArea(
@@ -196,35 +197,38 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
         ),
         Positioned(
           top: expandedHeight / 2.5 - shrinkOffset,
-          left: MediaQuery.of(context).size.width / 9,
-          child: Card(
-            color: Theme.of(context).primaryColorLight,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-              side: BorderSide.none,
-            ),
-            elevation: 10,
-            child: SizedBox(
-              height: expandedHeight,
-              width: expandedHeight,
-              child: Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: QrImage(
-                      size: double.infinity,
-                      data: history.url,
-                      version: QrVersions.auto,
+          left: (MediaQuery.of(context).size.width - expandedHeight) / 2,
+          right: (MediaQuery.of(context).size.width - expandedHeight) / 2,
+          child: Center(
+            child: Card(
+              color: Theme.of(context).primaryColorLight,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+                side: BorderSide.none,
+              ),
+              elevation: 10,
+              child: SizedBox(
+                height: expandedHeight,
+                width: expandedHeight,
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: QrImage(
+                        size: double.infinity,
+                        data: history.url,
+                        version: QrVersions.auto,
+                      ),
                     ),
-                  ),
-                  Align(
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 15),
-                      child: Text(history.date),
+                    Align(
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 15),
+                        child: Text(history.date),
+                      ),
+                      alignment: Alignment.bottomCenter,
                     ),
-                    alignment: Alignment.bottomCenter,
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

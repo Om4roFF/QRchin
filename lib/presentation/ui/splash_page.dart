@@ -26,8 +26,8 @@ class VideoState extends State<Splash> with SingleTickerProviderStateMixin {
     return new Timer(_duration, navigationPage);
   }
 
-  void navigationPage() async {
-    final isClient = await Application.isClient();
+  void navigationPage() {
+    final isClient = Application.isClient();
     Locale myLocale = Localizations.localeOf(context);
     setLang(context, myLocale.languageCode);
     if (isClient) {
@@ -84,36 +84,30 @@ class VideoState extends State<Splash> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 82, 175, 158),
-      body: Container(
-        // width: 1080,
-        // height: 1520,
-        alignment: Alignment.center,
-        child: AspectRatio(
-          aspectRatio: 0.6,
-          child: VideoPlayer(_controller!),
-        ),
-        // child: LayoutBuilder(
-        //   builder: (BuildContext context, BoxConstraints constraints) {
-        //     print('MAX HEIGHT: ${constraints.maxHeight}');
-        //     print('MAX WIDTH: ${constraints.maxWidth}');
-        //     print('MIN HEIGHT: ${constraints.minHeight}');
-        //     print('MIN WIDTH: ${constraints.minWidth}');
-        //     double verticalPadding = 0;
-        //     final double diagonal =
-        //         constraints.maxHeight / constraints.maxWidth;
-        //     if (!(diagonal <= 1.6)) {
-        //       final double ratio = diagonal / 1.6;
-        //       final s = ratio - 1;
-        //       verticalPadding = ((s * 120) / 0.31) / 2;
-        //       print(verticalPadding);
-        //     }
-        //     return Padding(
-        //       padding: EdgeInsets.symmetric(vertical: verticalPadding),
-        //       child: VideoPlayer(_controller!),
-        //     );
-        //   },
-        // ),
+      body: Stack(
+        children: [
+          SizedBox(
+            width: MediaQuery
+                .of(context)
+                .size
+                .width,
+            height: MediaQuery
+                .of(context)
+                .size
+                .height,
+            child: Image.asset(
+              'assets/images/bg.PNG',
+              fit: BoxFit.fill,
+            ),
+          ),
+          Container(
+            alignment: Alignment.center,
+            child: AspectRatio(
+              aspectRatio: 0.6,
+              child: VideoPlayer(_controller!),
+            ),
+          ),
+        ],
       ),
     );
   }

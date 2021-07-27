@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:qrching/domain/cubit/user_cubit.dart';
 import 'package:qrching/domain/cubit/user_state.dart';
+import 'package:qrching/internal/dependencies/scanner_state_module.dart';
 import 'package:qrching/presentation/utilities/custom_icons_icons.dart';
 import 'package:qrching/providers/application_provider.dart';
 import 'package:qrching/providers/draw_creation_prvider.dart';
@@ -23,22 +24,16 @@ import 'review_details/review_widget.dart';
 import 'scan_details/scanner_widget.dart';
 
 class HomePage extends StatelessWidget {
-  final GlobalKey<NavigatorState> createWidgetKey = GlobalKey<NavigatorState>();
-  final GlobalKey<NavigatorState> reviewWidgetKey = GlobalKey<NavigatorState>();
-  final GlobalKey<NavigatorState> scannerWidgetKey =
-      GlobalKey<NavigatorState>();
-  final GlobalKey<NavigatorState> historyWidgetKey =
-      GlobalKey<NavigatorState>();
-  final GlobalKey<NavigatorState> anotherWidgetKey =
-      GlobalKey<NavigatorState>();
-
   final List<Widget> _children = [
     ChangeNotifierProvider(
       child: CreateWidget(),
       create: (context) => DrawCreateProvider(),
     ),
     ReviewWidget(),
-    ScannerWidget(),
+    BlocProvider(
+      create: (context) => ScannerStateModule.scannerCubit(),
+      child: ScannerWidget(),
+    ),
     HistoryWidget(),
     AnotherWidget(),
     AboutProjectPage(),

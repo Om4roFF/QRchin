@@ -26,8 +26,8 @@ class SocialMedia extends StatelessWidget {
             },
           ),
         ),
-        body: SingleChildScrollView(
-          child: Container(
+        body: Container(
+          child: SingleChildScrollView(
             child: Column(
               children: [
                 HeaderWidget(
@@ -35,6 +35,7 @@ class SocialMedia extends StatelessWidget {
                         'Подписывайся на наши каналы, чтобы не пропустить новые розыгрыши!'),
                 GridView.count(
                   shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
                   crossAxisCount: 3,
                   children: [
                     Column(
