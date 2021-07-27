@@ -54,7 +54,6 @@ class _ScannerWidgetState extends State<ScannerWidget> {
     await _controller?.resumeCamera();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<ScannerCubit, ScannerState>(
@@ -81,9 +80,7 @@ class _ScannerWidgetState extends State<ScannerWidget> {
                         IconButton(
                           icon: Icon(CustomIcons.gallery),
                           onPressed: _onGalleryPressed,
-                          color: Theme
-                              .of(context)
-                              .backgroundColor,
+                          color: Theme.of(context).backgroundColor,
                         ),
                         IconButton(
                           icon: Icon(CustomIcons.flash),

@@ -65,7 +65,7 @@ class AnotherWidget extends StatelessWidget {
                       return ListTile(
                         onTap: () {
                           Provider.of<ApplicationProvider>(context,
-                              listen: false)
+                                  listen: false)
                               .setNavigationMenuIndex(index + 5);
                         },
                         dense: false,

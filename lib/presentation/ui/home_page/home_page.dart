@@ -8,7 +8,6 @@ import 'package:qrching/internal/dependencies/scanner_state_module.dart';
 import 'package:qrching/presentation/utilities/custom_icons_icons.dart';
 import 'package:qrching/providers/application_provider.dart';
 import 'package:qrching/providers/draw_creation_prvider.dart';
-import 'package:qrching/providers/question_provider.dart';
 
 import 'another_details/about_project_page.dart';
 import 'another_details/another_widget.dart';
@@ -40,10 +39,7 @@ class HomePage extends StatelessWidget {
     WinnersPage(),
     StatisticPage(),
     SocialMedia(),
-    ChangeNotifierProvider(
-      child: QuestionPage(),
-      create: (context) => QuestionProvider(),
-    ),
+    QuestionPage(),
     FeedbackPage(),
     SettingsPage(),
   ];

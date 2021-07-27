@@ -87,14 +87,8 @@ class VideoState extends State<Splash> with SingleTickerProviderStateMixin {
       body: Stack(
         children: [
           SizedBox(
-            width: MediaQuery
-                .of(context)
-                .size
-                .width,
-            height: MediaQuery
-                .of(context)
-                .size
-                .height,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
             child: Image.asset(
               'assets/images/bg.PNG',
               fit: BoxFit.fill,
