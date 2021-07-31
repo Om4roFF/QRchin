@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qrching/presentation/utilities/header_widget.dart';
@@ -27,162 +28,193 @@ class WinnersPage extends StatelessWidget {
             child: Column(
               children: [
                 HeaderWidget(
-                    content:
-                        'Здесь представлены последние 100 победителей публичных розыгрышей.'),
-                Card(
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide.none,
-                  ),
-                  color: Theme.of(context).primaryColorLight,
-                  elevation: 0,
-                  margin: EdgeInsets.only(left: 13, right: 13, top: 10),
-                  child: Container(
-                    width: double.infinity,
-                    height: 30,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Expanded(
-                          child: Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text('№')),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 20, right: 10),
-                            child: Text(
-                              'Выигрыш',
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                            flex: 2,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 20),
-                              child: Text('Дата'),
-                            )),
-                        Expanded(
-                          flex: 3,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 30),
-                            child: Text('Победитель'),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  content:
+                      'Здесь представлены последние 100 победителей публичных розыгрышей.',
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(horizontal: 26),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                //     children: [
-                //       Expanded(
-                //         child: Text('№'),
-                //         flex: 1,
-                //       ),
-                //       Expanded(
-                //         child: Text('Выигрыш'),
-                //         flex: 2,
-                //       ),
-                //       Expanded(
-                //         child: Text('Дата'),
-                //         flex: 2,
-                //       ),
-                //       Expanded(
-                //         child: Text('Победитель'),
-                //         flex: 2,
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                ListView.builder(
-                    itemCount: 2,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          side: BorderSide(
-                            color: Colors.grey.withOpacity(0.1),
-                            width: 0.5,
-                          ),
-                        ),
-                        margin: EdgeInsets.only(left: 13, right: 13, top: 10),
-                        child: GestureDetector(
-                          // onTap: ()=> _launchURL('https://youtube.com'),
-                          child: Container(
-                            width: double.infinity,
-                            height: 60,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Expanded(
-                                  child: Tooltip(
-                                    message: '${index + 1}',
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(left: 10),
-                                      child: Text(
-                                        '${index + 1}',
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            color: Color.fromRGBO(
-                                                229, 229, 229, 1),
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Tooltip(
-                                    message: '145\$',
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 20, right: 10),
-                                      child: Text(
-                                        '145\$',
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Text(
-                                    "11.11.2021",
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 3,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 20),
-                                    child: Text(
-                                      'Роман Романов',
-                                      style: TextStyle(fontSize: 12),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    }),
+                _TableView(),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class _TableView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 20),
+      child: Table(
+        columnWidths: {
+          0: FlexColumnWidth(1),
+          1: FlexColumnWidth(2),
+          2: FlexColumnWidth(2),
+          3: FlexColumnWidth(2),
+        },
+        children: [
+          TableRow(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: AutoSizeText(
+                  '№',
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: AutoSizeText(
+                  'Выигрыш',
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: AutoSizeText(
+                  'Дата',
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: AutoSizeText(
+                  'Победитель',
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+              ),
+            ],
+          ),
+          _buildTableRow(context,
+              date: '11. 11. 2021',
+              prize: '175\$',
+              winner: 'Роман Романов',
+              number: '1'),
+          _buildDivider(),
+          _buildTableRow(context,
+              date: '11. 11. 2021',
+              prize: '175\$',
+              winner: 'Роман Романов',
+              number: '1'),
+          _buildDivider(),
+          _buildTableRow(context,
+              date: '11. 11. 2021',
+              prize: '175\$',
+              winner: 'Роман Романов',
+              number: '1'),
+          _buildDivider(),
+          _buildTableRow(context,
+              date: '11. 11. 2021',
+              prize: '175\$',
+              winner: 'Роман Романов',
+              number: '1'),
+        ],
+      ),
+    );
+  }
+
+  TableRow _buildDivider() {
+    return TableRow(children: [
+      SizedBox(
+        height: 15,
+      ),
+      SizedBox(
+        height: 15,
+      ),
+      SizedBox(
+        height: 15,
+      ),
+      SizedBox(
+        height: 15,
+      ),
+    ]);
+  }
+
+  TableRow _buildTableRow(BuildContext context,
+      {required String date,
+      required String winner,
+      required String prize,
+      required String number}) {
+    return TableRow(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        color: Theme.of(context).cardColor,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.3),
+            blurRadius: 2,
+          ),
+        ],
+      ),
+      children: [
+        SizedBox(
+          height: 50,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: Text(
+                number,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 50,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: Text(
+                prize,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 50,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: Text(
+                date,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 50,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: Text(
+                winner,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 12),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

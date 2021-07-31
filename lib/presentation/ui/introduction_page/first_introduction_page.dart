@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qrching/generated/l10n.dart';
@@ -14,27 +15,27 @@ class FirstPage extends StatelessWidget {
         child: Column(
           children: [
             Flexible(
-              child: FittedBox(
-                fit: BoxFit.fitWidth,
-                child: Text(
-                  S.of(context).scan_and_win,
-                  style: Theme.of(context)
-                      .textTheme
-                      .subtitle1!
-                      .copyWith(fontSize: 26),
-                  maxLines: 1,
-                ),
+              child: AutoSizeText(
+                S.of(context).scan_and_win,
+                minFontSize: 26,
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1!
+                    .copyWith(fontSize: 26),
+                maxLines: 1,
               ),
             ),
             Flexible(
-              child: FittedBox(
-                fit: BoxFit.fitWidth,
-                child: Text(
-                  S.of(context).free,
-                  style: TextStyle(
-                    fontSize: 26,
-                    color: Theme.of(context).primaryColor,
-                  ),
+              child: AutoSizeText(
+                S
+                    .of(context)
+                    .free,
+                minFontSize: 26,
+                style: TextStyle(
+                  fontSize: 26,
+                  color: Theme
+                      .of(context)
+                      .primaryColor,
                 ),
               ),
             ),
@@ -42,7 +43,7 @@ class FirstPage extends StatelessWidget {
               flex: 4,
               child: Padding(
                 padding:
-                    EdgeInsets.only(top: 15, left: 30, right: 30, bottom: 20),
+                EdgeInsets.only(top: 15, left: 30, right: 30, bottom: 20),
                 child: Image.asset(
                   'assets/images/main-2.png',
                 ),
@@ -50,9 +51,12 @@ class FirstPage extends StatelessWidget {
             ),
             Flexible(
               flex: 1,
-              child: Text(
-                S.of(context).intro_page_1_content,
-                // style: TextStyle(fontSize: 14),
+              child: AutoSizeText(
+                S
+                    .of(context)
+                    .intro_page_1_content,
+                minFontSize: 12,
+                maxLines: 1,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -61,14 +65,20 @@ class FirstPage extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.only(top: 26, left: 40),
                 child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      S.of(context).choose_lang,
-                      style: TextStyle(
-                        // fontSize: 12,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    )),
+                  alignment: Alignment.centerLeft,
+                  child: AutoSizeText(
+                    S
+                        .of(context)
+                        .choose_lang,
+                    style: TextStyle(
+                      color: Theme
+                          .of(context)
+                          .primaryColor,
+                    ),
+                    maxLines: 1,
+                    minFontSize: 14,
+                  ),
+                ),
               ),
             ),
             Flexible(flex: 1, child: _DropDownLanguageButton()),

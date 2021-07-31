@@ -48,8 +48,10 @@ class _HistoryListView extends StatelessWidget {
           return Expanded(
             child: ListView.builder(
                 itemCount: historyBox.values.length,
+                reverse: false,
                 itemBuilder: (context, index) {
-                  final History? res = historyBox.getAt(index);
+                  final History? res =
+                      historyBox.getAt(historyBox.values.length - index - 1);
                   return Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -58,7 +60,7 @@ class _HistoryListView extends StatelessWidget {
                         width: 0.5,
                       ),
                     ),
-                    color: Colors.white,
+                    color: Theme.of(context).cardColor,
                     margin: EdgeInsets.only(left: 13, right: 13, top: 10),
                     child: ListTile(
                       // leading: res.iconUrl ?? ,

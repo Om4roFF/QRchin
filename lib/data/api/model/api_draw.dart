@@ -32,7 +32,7 @@ class ApiDraws {
       currencyId: json['currency_id'],
       currencyCode: json['currency_code'],
       payments: ApiPayments.fromJson(json['payments']),
-      error: json['data']['error'],
+      error: json['data']['error'] ?? '',
     );
   }
 }

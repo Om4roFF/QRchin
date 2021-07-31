@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:qrching/presentation/utilities/custom_icons_icons.dart';
 import 'package:qrching/providers/application_provider.dart';
 
+import 'contact_page.dart';
 import 'privacy_policy.dart';
 import 'terms_of_use.dart';
 
@@ -40,8 +41,6 @@ class AnotherWidget extends StatelessWidget {
       child: Container(
         child: SingleChildScrollView(
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.start,
-            // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
                 child: Padding(
@@ -88,7 +87,7 @@ class AnotherWidget extends StatelessWidget {
               ),
               _Links(
                 title: 'Контактная информация',
-                toRoute: PrivacyPolicyPage(),
+                toRoute: ContactPage(),
               ),
               _Links(
                 title: 'Условия использования',
@@ -119,14 +118,10 @@ class _Links extends StatelessWidget {
       child: InkWell(
         child: Text(
           '$title',
-          style: Theme
-              .of(context)
-              .textTheme
-              .bodyText1!
-              .copyWith(
-            fontWeight: FontWeight.bold,
-            decoration: TextDecoration.underline,
-          ),
+          style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                fontWeight: FontWeight.bold,
+                decoration: TextDecoration.underline,
+              ),
         ),
         onTap: () {
           Navigator.of(context).push(

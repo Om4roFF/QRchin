@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qrching/presentation/utilities/header_widget.dart';
@@ -10,6 +11,7 @@ class SocialMedia extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size.width / 8;
     return WillPopScope(
       onWillPop: () {
         Provider.of<ApplicationProvider>(context, listen: false)
@@ -32,7 +34,7 @@ class SocialMedia extends StatelessWidget {
               children: [
                 HeaderWidget(
                     content:
-                        'Подписывайся на наши каналы, чтобы не пропустить новые розыгрыши!'),
+                    'Подписывайся на наши каналы, чтобы не пропустить новые розыгрыши!'),
                 GridView.count(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
@@ -41,14 +43,22 @@ class SocialMedia extends StatelessWidget {
                     Column(
                       children: [
                         InkWell(
-                            onTap: () =>
-                                _launchURL('https://www.facebook.com/qrching'),
-                            child: Image.asset(
-                              'assets/svg_logo/facebook.png',
-                              width: 50,
-                              height: 50,
-                            )),
-                        Text('Facebook'),
+                          onTap: () =>
+                              _launchURL('https://www.facebook.com/qrching'),
+                          child: Image.asset(
+                            'assets/svg_logo/facebook.png',
+                            width: size,
+                            height: size,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        AutoSizeText(
+                          'Facebook',
+                          minFontSize: 14,
+                          maxFontSize: 30,
+                        ),
                       ],
                     ),
                     Column(
@@ -58,11 +68,18 @@ class SocialMedia extends StatelessWidget {
                               _launchURL('https://www.youtube.com/c/qrching'),
                           child: Image.asset(
                             'assets/svg_logo/YouTube.png',
-                            width: 50,
-                            height: 50,
+                            width: size,
+                            height: size,
                           ),
                         ),
-                        Text('YouTube'),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        AutoSizeText(
+                          'YouTube',
+                          minFontSize: 14,
+                          maxFontSize: 30,
+                        ),
                       ],
                     ),
                     Column(
@@ -72,11 +89,18 @@ class SocialMedia extends StatelessWidget {
                               _launchURL('https://www.instagram.com/qrching'),
                           child: Image.asset(
                             'assets/svg_logo/instagram.png',
-                            width: 50,
-                            height: 50,
+                            width: size,
+                            height: size,
                           ),
                         ),
-                        Text('Instagram'),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        AutoSizeText(
+                          'Instagram',
+                          minFontSize: 14,
+                          maxFontSize: 30,
+                        ),
                       ],
                     ),
                     Column(
@@ -86,11 +110,18 @@ class SocialMedia extends StatelessWidget {
                               _launchURL('https://www.tiktok.com/@qrching'),
                           child: Image.asset(
                             'assets/svg_logo/TikTok.png',
-                            width: 50,
-                            height: 50,
+                            width: size,
+                            height: size,
                           ),
                         ),
-                        Text('TikTok'),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        AutoSizeText(
+                          'TikTok',
+                          minFontSize: 14,
+                          maxFontSize: 30,
+                        ),
                       ],
                     ),
                     Column(
@@ -99,12 +130,19 @@ class SocialMedia extends StatelessWidget {
                           onTap: () =>
                               _launchURL('https://www.likee.video/@qrching'),
                           child: Image.asset(
-                            'assets/svg_logo/like.png',
-                            width: 50,
-                            height: 50,
+                            'assets/svg_logo/likee.png',
+                            width: size,
+                            height: size,
                           ),
                         ),
-                        Text('Like'),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        AutoSizeText(
+                          'Likee',
+                          minFontSize: 14,
+                          maxFontSize: 30,
+                        ),
                       ],
                     ),
                     Column(
@@ -114,25 +152,40 @@ class SocialMedia extends StatelessWidget {
                               _launchURL('https://www.pinterest.com/qrching'),
                           child: Image.asset(
                             'assets/svg_logo/Pinterest.png',
-                            width: 50,
-                            height: 50,
+                            width: size,
+                            height: size,
                           ),
                         ),
-                        Text('Pinterest'),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        AutoSizeText(
+                          'Pinterest',
+                          minFontSize: 14,
+                          maxFontSize: 30,
+                        ),
                       ],
                     ),
                     Column(
                       children: [
                         InkWell(
-                          onTap: () => _launchURL(
-                              'https://www.snapchat.com/add/qrching'),
+                          onTap: () =>
+                              _launchURL(
+                                  'https://www.snapchat.com/add/qrching'),
                           child: Image.asset(
                             'assets/svg_logo/Snapchat.png',
-                            width: 50,
-                            height: 50,
+                            width: size,
+                            height: size,
                           ),
                         ),
-                        Text('Snapchat'),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        AutoSizeText(
+                          'Snapchat',
+                          minFontSize: 14,
+                          maxFontSize: 30,
+                        ),
                       ],
                     ),
                     Column(
@@ -142,11 +195,18 @@ class SocialMedia extends StatelessWidget {
                               _launchURL('https://www.twitter.com/qrching'),
                           child: Image.asset(
                             'assets/svg_logo/Twitter.png',
-                            width: 50,
-                            height: 50,
+                            width: size,
+                            height: size,
                           ),
                         ),
-                        Text('Twitter'),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        AutoSizeText(
+                          'Twitter',
+                          minFontSize: 14,
+                          maxFontSize: 30,
+                        ),
                       ],
                     ),
                     Column(
@@ -156,25 +216,40 @@ class SocialMedia extends StatelessWidget {
                               _launchURL('https://www.reddit.com/r/qrching'),
                           child: Image.asset(
                             'assets/svg_logo/Reddit.png',
-                            width: 50,
-                            height: 50,
+                            width: size,
+                            height: size,
                           ),
                         ),
-                        Text('Reddit'),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        AutoSizeText(
+                          'Reddit',
+                          minFontSize: 14,
+                          maxFontSize: 30,
+                        ),
                       ],
                     ),
                     Column(
                       children: [
                         InkWell(
-                          onTap: () => _launchURL(
-                              'https://www.linkedin.com/company/qrching'),
+                          onTap: () =>
+                              _launchURL(
+                                  'https://www.linkedin.com/company/qrching'),
                           child: Image.asset(
                             'assets/svg_logo/Linkedin.png',
-                            width: 50,
-                            height: 50,
+                            width: size,
+                            height: size,
                           ),
                         ),
-                        Text('Linkedin'),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        AutoSizeText(
+                          'Linkedin',
+                          minFontSize: 14,
+                          maxFontSize: 30,
+                        ),
                       ],
                     ),
                     Column(
@@ -183,11 +258,18 @@ class SocialMedia extends StatelessWidget {
                           onTap: () => _launchURL('https://www.vk.com/qrching'),
                           child: Image.asset(
                             'assets/svg_logo/VK.png',
-                            width: 50,
-                            height: 50,
+                            width: size,
+                            height: size,
                           ),
                         ),
-                        Text('VK'),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        AutoSizeText(
+                          'VK',
+                          minFontSize: 14,
+                          maxFontSize: 30,
+                        ),
                       ],
                     ),
                     Column(
@@ -196,11 +278,18 @@ class SocialMedia extends StatelessWidget {
                           onTap: () => _launchURL('https://ok.ru/qrching'),
                           child: Image.asset(
                             'assets/svg_logo/OK.png',
-                            width: 50,
-                            height: 50,
+                            width: size,
+                            height: size,
                           ),
                         ),
-                        Text('OK'),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        AutoSizeText(
+                          'OK',
+                          minFontSize: 14,
+                          maxFontSize: 30,
+                        ),
                       ],
                     ),
                     Column(
@@ -209,11 +298,19 @@ class SocialMedia extends StatelessWidget {
                           onTap: () => _launchURL('https://qrching.tumblr.com'),
                           child: Image.asset(
                             'assets/svg_logo/Tumblr.png',
-                            width: 50,
-                            height: 50,
+                            width: size,
+                            height: size,
                           ),
                         ),
-                        Text('Tumblr'),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        AutoSizeText(
+                          'Tumblr',
+                          maxLines: 1,
+                          minFontSize: 14,
+                          maxFontSize: 30,
+                        ),
                       ],
                     ),
                   ],

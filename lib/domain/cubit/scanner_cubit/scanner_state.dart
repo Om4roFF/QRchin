@@ -8,9 +8,10 @@ enum ScanStatus {
 abstract class ScannerState {}
 
 class ScannerLoadedState extends ScannerState {
-  ScanStatus scanStatus;
+  final ScanStatus scanStatus;
+  final String qrCode;
 
-  ScannerLoadedState(this.scanStatus);
+  ScannerLoadedState(this.scanStatus, this.qrCode);
 }
 
 class ScannerErrorState extends ScannerState {}

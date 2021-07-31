@@ -22,7 +22,7 @@ class ClientService {
     );
     log('RESPONSE STATUS CODE: ${response.statusCode}');
     log('RESPONSE BODY: ${response.data}');
-    if (response.statusCode == 201) {
+    if (response.statusCode == 201 || response.statusCode == 200) {
       return ApiClient.fromJson(response.data);
     } else if (response.statusCode == 422) {
       return ApiClient.fromJson(response.data);
@@ -42,13 +42,14 @@ class ClientService {
     );
     log('RESPONSE STATUS CODE: ${response.statusCode}');
     log('RESPONSE BODY: ${response.data}');
-    if (response.statusCode == 201) {
+    if (response.statusCode == 201 || response.statusCode == 200) {
       return ApiDraws.fromJson(response.data);
     } else if (response.statusCode == 403) {
       return ApiDraws.fromJson(response.data);
     } else {
       throw Exception(
-          'Scan QR Exception: code = ${response.statusCode}, body = ${response.data}');
+          'Scan QR Exception: code = ${response.statusCode}, body = ${response
+              .data}');
     }
   }
 }

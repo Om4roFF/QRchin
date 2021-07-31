@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,16 +25,18 @@ class HistoryViewPage extends StatelessWidget {
   void _launchURL(context) async => await canLaunch(history!.url)
       ? await launch(history!.url)
       : ScaffoldMessenger.of(context).showSnackBar(
-          _getFailedSnackBar('Не возможно открыть ссылку!'),
-        );
+    _getFailedSnackBar('Не возможно открыть ссылку!'),
+  );
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           SliverPersistentHeader(
-            delegate: MySliverAppBar(expandedHeight: 300, history: history!),
+            delegate: MySliverAppBar(
+                expandedHeight: width > 350 ? 300 : 250, history: history!),
           ),
           SliverToBoxAdapter(
             child: SafeArea(
@@ -42,7 +45,10 @@ class HistoryViewPage extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 140),
                 child: SingleChildScrollView(
                   child: Card(
-                    color: Theme.of(context).primaryColorLight,
+                    color: Theme
+                        .of(context)
+                        .primaryColorLight
+                        .withOpacity(0.2),
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4),
@@ -54,23 +60,30 @@ class HistoryViewPage extends StatelessWidget {
                     elevation: 0,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          IconButton(
-                            icon: const Icon(Icons.link),
-                            color: const Color.fromRGBO(255, 191, 67, 1),
-                            onPressed: () {
-                              Clipboard.setData(
-                                ClipboardData(text: history!.url),
-                              );
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(_getSuccessSnackBar());
-                            },
+                      child: TextButton.icon(
+                        onPressed: () {
+                          Clipboard.setData(
+                            ClipboardData(text: history!.url),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            _getSuccessSnackBar(),
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.link_outlined,
+                          color: const Color.fromRGBO(255, 191, 67, 1),
+                        ),
+                        label: Expanded(
+                          child: Text(
+                            history!.url,
+                            style: TextStyle(
+                                color: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .color),
                           ),
-                          Expanded(
-                            child: Text(history!.url),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
@@ -81,28 +94,30 @@ class HistoryViewPage extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: Container(
-        padding: const EdgeInsets.only(bottom: 20, top: 20),
+        padding: const EdgeInsets.all(20),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             TextButton(
               style: TextButton.styleFrom(
-                backgroundColor: Theme.of(context).primaryColor,
+                backgroundColor: Theme
+                    .of(context)
+                    .primaryColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(4),
                   side: BorderSide(
-                    color: Theme.of(context).primaryColor,
+                    color: Theme
+                        .of(context)
+                        .primaryColor,
                   ),
                 ),
-                minimumSize: const Size(160, 50),
+                fixedSize: Size(width / 2.5, 50),
               ),
               onPressed: () => _launchURL(context),
-              child: Padding(
-                padding: const EdgeInsets.all(15),
-                child: Text(
-                  "Открыть в браузере",
-                  style: const TextStyle(color: Colors.white),
-                ),
+              child: AutoSizeText(
+                "Открыть в браузере",
+                maxLines: 1,
+                style: const TextStyle(color: Colors.white),
               ),
             ),
             SizedBox(
@@ -110,18 +125,23 @@ class HistoryViewPage extends StatelessWidget {
             ),
             TextButton(
               style: TextButton.styleFrom(
+                fixedSize: Size(width / 2.5, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(4),
                   side: BorderSide(
-                    color: Theme.of(context).primaryColor,
+                    color: Theme
+                        .of(context)
+                        .primaryColor,
                   ),
                 ),
-                minimumSize: const Size(160, 50),
               ),
               onPressed: () async => await Share.share(history!.url),
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Text("Поделиться"),
+              child: AutoSizeText(
+                "Поделиться",
+                maxLines: 1,
+                style: TextStyle(color: Theme
+                    .of(context)
+                    .primaryColor),
               ),
             ),
           ],
@@ -138,8 +158,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
   MySliverAppBar({required this.expandedHeight, required this.history});
 
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Stack(
       overflow: Overflow.visible,
       children: [
@@ -173,13 +192,14 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
             alignment: Alignment.topCenter,
             child: Padding(
               padding: const EdgeInsets.only(top: 20),
-              child: Text(
+              child: AutoSizeText(
                 "История детально",
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w700,
                   fontSize: 23,
                 ),
+                maxLines: 1,
               ),
             ),
           ),
@@ -218,12 +238,22 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                         size: double.infinity,
                         data: history.url,
                         version: QrVersions.auto,
+                        // backgroundColor: Colors.white,
+                        foregroundColor: Theme
+                            .of(context)
+                            .primaryColorDark,
                       ),
                     ),
                     Align(
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 15),
-                        child: Text(history.date),
+                        child: Text(
+                          history.date,
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .bodyText1,
+                        ),
                       ),
                       alignment: Alignment.bottomCenter,
                     ),

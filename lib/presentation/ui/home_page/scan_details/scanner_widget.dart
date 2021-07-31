@@ -8,6 +8,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qrching/domain/cubit/scanner_cubit/scanner_cubit.dart';
 import 'package:qrching/domain/cubit/scanner_cubit/scanner_state.dart';
+import 'package:qrching/presentation/ui/home_page/scan_details/error_dialog_box.dart';
+import 'package:qrching/presentation/ui/home_page/scan_details/loadedDialogBox.dart';
+import 'package:qrching/presentation/ui/home_page/scan_details/loading_dialog_box.dart';
 import 'package:qrching/presentation/utilities/custom_icons_icons.dart';
 import 'package:scan/scan.dart';
 
@@ -48,9 +51,14 @@ class _ScannerWidgetState extends State<ScannerWidget> {
         await _picker.getImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       String? res = await Scan.parse(pickedFile.path);
-      _controller!.pauseCamera();
-      _scannerCubit.scanQR(res!);
+      log(res!);
+      if (res.isEmpty || res == '') {
+        await _controller?.resumeCamera();
+      } else {
+        _scannerCubit.scanQR(res);
+      }
     }
+    Future.delayed(Duration(seconds: 1));
     await _controller?.resumeCamera();
   }
 
@@ -58,8 +66,32 @@ class _ScannerWidgetState extends State<ScannerWidget> {
   Widget build(BuildContext context) {
     return BlocListener<ScannerCubit, ScannerState>(
       listener: (context, state) {
-        // if(state is )
-        // TODO
+        if (state is ScannerErrorState) {
+          log('Current state: Error');
+          showDialog(context: context, builder: (context) => ErrorDialogBox());
+        } else if (state is ScannerLoadingState) {
+          log('Current state: Loading');
+          showDialog(
+            context: context,
+            builder: (context) => LoadingDialogBox(),
+          );
+        } else if (state is ScannerLoadedState) {
+          log('Current state: Loaded');
+          if (state.scanStatus != ScanStatus.None) {
+            showDialog(
+              context: context,
+              builder: (context) =>
+                  LoadedDialogBox(
+                    scanStatus: state.scanStatus,
+                    result: state.qrCode,
+                  ),
+            );
+          } else {
+            // Navigator.pop(context);
+            // Provider.of<ApplicationProvider>(context, listen: false)
+            //     .setNavigationMenuIndex(3);
+          }
+        }
       },
       child: Stack(
         children: <Widget>[
@@ -103,68 +135,6 @@ class _ScannerWidgetState extends State<ScannerWidget> {
     );
   }
 
-  // void _navigate(ScanStatus scanStatus) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (_) {
-  //       switch (scanStatus) {
-  //         case ScanStatus.Lose:
-  //           return DialogBox(
-  //             assetImage: 'assets/images/almost.png',
-  //             title: 'Почти получилось!',
-  //             content:
-  //                 'К сожалению, в этот раз твоё 12578 сканирование оказалось не выигрышным.\n'
-  //                 'Не отчаивайся – пробуй ещё и рано или\n '
-  //                 'поздно ты обязательно выиграешь! Желаем удачи!',
-  //             buttonText: 'Хорошо',
-  //           );
-  //         case ScanStatus.Win:
-  //           return DialogBox(
-  //             assetImage: 'assets/images/victory.png',
-  //             title: 'Ура, победа!!!',
-  //             content: 'Мы рады сообщить тебе,'
-  //                 ' что тебя ждёт денежный приз в размере ХХХ ₽, €, \$,'
-  //                 ' BTC! Пожалуйста, укажи свои реквизиты,'
-  //                 ' чтобы мы знали, куда перевести твой выигрыш.'
-  //                 ' Мы используем твои данные только для выплаты'
-  //                 ' выигрыша и после этого сразу удалим.',
-  //             buttonText: 'Далее',
-  //           );
-  //         case ScanStatus.Congrats:
-  //           return DialogBox(
-  //             assetImage: 'assets/images/grats.png',
-  //             title: 'Благодарим за участие в наших розыгрышах!',
-  //             content: 'Мы получили твои данные и'
-  //                 ' постараемся как можно скорее'
-  //                 ' сообщить тебе по E-Mail'
-  //                 ' об успешной выплате твоего выигрыша.',
-  //             buttonText: 'Хорошо',
-  //           );
-  //         case ScanStatus.Data:
-  //           return DialogBox(
-  //             assetImage: 'assets/images/almost.png',
-  //             title: 'Почти получилось!',
-  //             content:
-  //                 'К сожалению, в этот раз твоё 12578 сканирование оказалось не выигрышным.\n'
-  //                 'Не отчаивайся – пробуй ещё и рано или\n '
-  //                 'поздно ты обязательно выиграешь! Желаем удачи!',
-  //             buttonText: 'Хорошо',
-  //           );
-  //         case ScanStatus.Simple:
-  //           return DialogBox(
-  //             assetImage: 'assets/images/almost.png',
-  //             title: 'Почти получилось!',
-  //             content:
-  //                 'К сожалению, в этот раз твоё 12578 сканирование оказалось не выигрышным.\n'
-  //                 'Не отчаивайся – пробуй ещё и рано или\n '
-  //                 'поздно ты обязательно выиграешь! Желаем удачи!',
-  //             buttonText: 'Хорошо',
-  //           );
-  //       }
-  //     },
-  //   );
-  // }
-
   Widget _buildQrView(BuildContext context) {
     // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
     // To ensure the Scanner view is properly sizes after rotation
@@ -173,6 +143,9 @@ class _ScannerWidgetState extends State<ScannerWidget> {
         .of(context)
         .size
         .width;
+    double qrWidth = 300;
+    if (width > 500) qrWidth = width - 300;
+
     return QRView(
       key: _qrKey,
       onQRViewCreated: _onQRViewCreated,
@@ -181,7 +154,7 @@ class _ScannerWidgetState extends State<ScannerWidget> {
           borderRadius: 10,
           borderLength: 30,
           borderWidth: 10,
-          cutOutSize: width - 100),
+          cutOutSize: qrWidth),
     );
   }
 
@@ -193,6 +166,7 @@ class _ScannerWidgetState extends State<ScannerWidget> {
       controller.pauseCamera();
       log('${scanData.code}');
       _scannerCubit.scanQR(scanData.code);
+      Future.delayed(Duration(seconds: 1));
       controller.resumeCamera();
     });
   }

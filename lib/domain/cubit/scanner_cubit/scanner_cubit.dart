@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
@@ -15,33 +17,33 @@ class ScannerCubit extends Cubit<ScannerState> {
   final ClientRepository _clientRepository;
 
   void scanQR(String qrData) async {
-    emit(ScannerLoadingState());
-    var box = Hive.box(Application.applicationBox);
-    final String hash = box.get(Application.getClientHash());
+    final String hash = Application.getClientHash();
     final address = 'qrching.com';
-
     try {
       final bool isUrl = await canLaunch(qrData);
       if (isUrl) {
         if (qrData.contains(address)) {
+          log('QR CONTAIN ADDRESS');
           final Draws draws =
               await _clientRepository.scanQR(hash: hash, qrCode: qrData);
           if (draws.isError()) {
+            log('Error message: ${draws.errorMessage}');
             emit(ScannerErrorState());
           }
           if (draws.winner)
-            emit(ScannerLoadedState(ScanStatus.Win));
+            emit(ScannerLoadedState(ScanStatus.Win, qrData));
           else
-            emit(ScannerLoadedState(ScanStatus.Lose));
+            emit(ScannerLoadedState(ScanStatus.Lose, qrData));
         } else {
           await _launchURL(qrData);
-          emit(ScannerLoadedState(ScanStatus.None));
+          emit(ScannerLoadedState(ScanStatus.None, qrData));
         }
       } else {
-        emit(ScannerLoadedState(ScanStatus.Simple));
+        emit(ScannerLoadedState(ScanStatus.Simple, qrData));
       }
       _saveData(qrData);
     } catch (error) {
+      log('ERROR QR SCANNING: ${error.toString()}');
       emit(ScannerErrorState());
     }
   }

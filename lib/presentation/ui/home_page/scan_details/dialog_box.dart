@@ -6,13 +6,15 @@ class DialogBox extends StatelessWidget {
   final String title;
   final String content;
   final String buttonText;
+  final GestureTapCallback? onTap;
 
   const DialogBox(
       {Key? key,
       required this.assetImage,
       required this.title,
       required this.content,
-      required this.buttonText})
+      required this.buttonText,
+      required this.onTap})
       : super(key: key);
 
   @override
@@ -51,13 +53,15 @@ class DialogBox extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
             child: TextButton(
-              onPressed: () {},
+              onPressed: () => Navigator.pop(context),
               child: Text(
                 buttonText,
                 style: TextStyle(color: Colors.white),
               ),
               style: TextButton.styleFrom(
-                backgroundColor: Theme.of(context).primaryColor,
+                backgroundColor: Theme
+                    .of(context)
+                    .primaryColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),

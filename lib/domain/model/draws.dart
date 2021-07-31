@@ -23,7 +23,7 @@ class Draws {
       required this.errorMessage});
 
   bool isError() {
-    if (this.errorMessage != null) return true;
+    if (this.errorMessage != '') return true;
     return false;
   }
 }

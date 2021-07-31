@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qrching/presentation/ui/home_page/another_details/privacy_policy.dart';
@@ -41,7 +42,7 @@ class FeedbackPage extends StatelessWidget {
               children: [
                 HeaderWidget(
                     content:
-                        'Мы приложим все усилия, чтобы ответить на твоё сообщение в кратчайшие сроки.'),
+                    'Мы приложим все усилия, чтобы ответить на твоё сообщение в кратчайшие сроки.'),
                 _AppealForm(),
                 _FullNameField(),
                 _EmailFormField(_emailFormField),
@@ -59,7 +60,7 @@ class FeedbackPage extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .bodyText1!
-                          .copyWith(color: Theme.of(context).primaryColorLight),
+                          .copyWith(color: Theme.of(context).primaryColorDark),
                     ),
                     onPressed: () {
                       validateAndSave();
@@ -82,38 +83,83 @@ class FeedbackPage extends StatelessWidget {
   }
 }
 
-class _AppealForm extends StatelessWidget {
-  final List<String> popUpText = ['Официальное', 'Деловое'];
+class _AppealForm extends StatefulWidget {
+  @override
+  __AppealFormState createState() => __AppealFormState();
+}
 
-  // String value = 'Официальное';
+class __AppealFormState extends State<_AppealForm> {
+  final List<String> popUpText = ['Мужчина', 'Женщина'];
+
+  String? value;
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton(
-      itemBuilder: (context) {
-        final list = List.generate(
-          popUpText.length,
-          (index) => PopupMenuItem(
-            child: SizedBox(
-              width: 600,
-              child: Text(popUpText[index]),
-            ),
-          ),
-        );
-        return list;
-      },
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 15),
+        width: double.infinity,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          border: Border.all(
-            width: 1,
-            color: Theme.of(context).dividerColor,
-          ),
+          borderRadius: BorderRadius.circular(4),
+          border: Border.all(color: Theme
+              .of(context)
+              .dividerColor, width: 1),
         ),
-        child: ListTile(
-          title: Text('Обращение *'),
-          trailing: Icon(Icons.arrow_drop_down),
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton<String>(
+            icon: Icon(
+              null,
+              size: 0,
+            ),
+            isExpanded: true,
+            hint: Container(
+              width: double.infinity,
+              height: 50,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 14.0),
+                    child: Text('Обращение *'),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: Icon(Icons.keyboard_arrow_down_rounded),
+                  ),
+                ],
+              ),
+            ),
+            onChanged: (newValue) {
+              setState(
+                    () {
+                  value = newValue;
+                },
+              );
+            },
+            value: value,
+            items: [
+              DropdownMenuItem(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: Center(
+                    child: Text('Господин'),
+                  ),
+                ),
+                value: 'male',
+              ),
+              DropdownMenuItem(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: Center(
+                    child: Text('Госпожа'),
+                  ),
+                ),
+                value: 'female',
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -237,38 +283,83 @@ class _PhoneFormField extends StatelessWidget {
   }
 }
 
-class _ThemeOfMessage extends StatelessWidget {
-  final List<String> popUpText = ['Официальное', 'Деловое'];
+class _ThemeOfMessage extends StatefulWidget {
+  @override
+  __ThemeOfMessageState createState() => __ThemeOfMessageState();
+}
 
-  // String value = 'Официальное';
+class __ThemeOfMessageState extends State<_ThemeOfMessage> {
+  final List<String> popUpText = ['Временно', 'Временно'];
+
+  String? value;
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton(
-      itemBuilder: (context) {
-        final list = List.generate(
-          popUpText.length,
-          (index) => PopupMenuItem(
-            child: SizedBox(
-              width: 600,
-              child: Text(popUpText[index]),
-            ),
-          ),
-        );
-        return list;
-      },
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 15),
       child: Container(
-        margin: const EdgeInsets.only(left: 15, right: 15, top: 15),
+        width: double.infinity,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          border: Border.all(
-            width: 1,
-            color: Theme.of(context).dividerColor,
-          ),
+          borderRadius: BorderRadius.circular(4),
+          border: Border.all(color: Theme
+              .of(context)
+              .dividerColor, width: 1),
         ),
-        child: ListTile(
-          title: Text('Обращение *'),
-          trailing: Icon(Icons.arrow_drop_down),
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton<String>(
+            icon: Icon(
+              null,
+              size: 0,
+            ),
+            isExpanded: true,
+            hint: Container(
+              width: double.infinity,
+              height: 50,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 14.0),
+                    child: Text('Тема сообщения *'),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: Icon(Icons.keyboard_arrow_down_rounded),
+                  ),
+                ],
+              ),
+            ),
+            onChanged: (newValue) {
+              setState(
+                    () {
+                  value = newValue;
+                },
+              );
+            },
+            value: value,
+            items: [
+              DropdownMenuItem(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: Center(
+                    child: Text('Unknown1'),
+                  ),
+                ),
+                value: 'xz',
+              ),
+              DropdownMenuItem(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: Center(
+                    child: Text('Unknown2'),
+                  ),
+                ),
+                value: 'xy',
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -336,22 +427,32 @@ class __AccessButtonState extends State<_AccessButton> {
       child: Row(
         children: [
           Checkbox(
-              side: BorderSide(
-                width: 0.7,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4),
-              ),
-              value: checkedValue,
-              onChanged: (newValue) {
-                setState(() {
+            side: BorderSide(
+              width: 0.7,
+              color: Theme
+                  .of(context)
+                  .primaryColorDark,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(4),
+            ),
+            value: checkedValue,
+            onChanged: (newValue) {
+              setState(
+                    () {
                   checkedValue = newValue!;
-                });
-              }),
+                },
+              );
+            },
+          ),
           Expanded(
             child: RichText(
               text: TextSpan(
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .bodyText1!
+                      .copyWith(fontWeight: FontWeight.normal),
                   children: [
                     TextSpan(text: 'Я прочитал(а) и принимаю условия '),
                     WidgetSpan(
@@ -365,7 +466,11 @@ class __AccessButtonState extends State<_AccessButton> {
                         },
                         child: Text(
                           'Политики конфиденциальности',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -381,7 +486,11 @@ class __AccessButtonState extends State<_AccessButton> {
                         },
                         child: Text(
                           'Условия обработки персональных данных. *',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -390,62 +499,6 @@ class __AccessButtonState extends State<_AccessButton> {
           ),
         ],
       ),
-      // child: CheckboxListTile(
-      //   title: RichText(
-      //     text:
-      //         TextSpan(style: Theme.of(context).textTheme.bodyText2, children: [
-      //       TextSpan(text: 'Я прочитал(а) и принимаю условия '),
-      //       TextSpan(
-      //         text: 'Политики конфиденциальности',
-      //         onEnter: (point) {
-      //           print(point);
-      //         },
-      //         style: Theme.of(context)
-      //             .textTheme
-      //             .bodyText2!
-      //             .copyWith(fontWeight: FontWeight.bold),
-      //       ),
-      //       TextSpan(text: ' и '),
-      //       TextSpan(
-      //           text: 'Условия обработки персональных данных. *',
-      //           style: TextStyle(fontWeight: FontWeight.bold))
-      //     ]),
-      //   ),
-      //   value: checkedValue,
-      //   onChanged: (newValue) {
-      //     setState(() {
-      //       checkedValue = newValue!;
-      //     });
-      //   },
-      //   controlAffinity:
-      //       ListTileControlAffinity.leading, //  <-- leading Checkbox
-      // ),
     );
   }
 }
-
-// class _SendMessage extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       margin: const EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 20),
-//       child: TextButton(
-//         child: Text(
-//           'Отправить сообщение',
-//           style: Theme.of(context)
-//               .textTheme
-//               .bodyText1!
-//               .copyWith(color: Theme.of(context).primaryColorLight),
-//         ),
-//         onPressed: () {},
-//         style: TextButton.styleFrom(
-//           shape: RoundedRectangleBorder(
-//             borderRadius: BorderRadius.circular(5),
-//           ),
-//           minimumSize: Size(double.infinity, 50),
-//           backgroundColor: Theme.of(context).primaryColor,
-//         ),
-//       ),
-//     );
-//   }
-// }

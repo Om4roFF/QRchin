@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class HeaderWidget extends StatelessWidget {
@@ -12,11 +13,14 @@ class HeaderWidget extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Theme.of(context).cardColor,
+          color: Theme.of(context).dividerColor,
         ),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Text(content),
+          child: AutoSizeText(
+            content,
+            minFontSize: 14,
+          ),
         ),
       ),
     );

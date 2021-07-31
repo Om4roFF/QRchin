@@ -40,7 +40,7 @@ class Application {
     // return prefs!.containsKey(clientHash);
   }
 
-  static String? getClientHash() {
+  static String getClientHash() {
     var box = Hive.box(applicationBox);
     return box.get(clientHash);
 
@@ -66,7 +66,7 @@ class Application {
 
   static bool isDarkTheme() {
     var box = Hive.box(applicationBox);
-    return box.containsKey(appTheme);
+    return box.get(appTheme, defaultValue: false);
 
     // final prefs = await _prefs;
     // return prefs!.getBool(appTheme) ?? false;
