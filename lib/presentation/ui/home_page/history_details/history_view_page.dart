@@ -25,8 +25,8 @@ class HistoryViewPage extends StatelessWidget {
   void _launchURL(context) async => await canLaunch(history!.url)
       ? await launch(history!.url)
       : ScaffoldMessenger.of(context).showSnackBar(
-    _getFailedSnackBar('Не возможно открыть ссылку!'),
-  );
+          _getFailedSnackBar('Не возможно открыть ссылку!'),
+        );
 
   @override
   Widget build(BuildContext context) {
@@ -158,7 +158,8 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
   MySliverAppBar({required this.expandedHeight, required this.history});
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(BuildContext context, double shrinkOffset,
+      bool overlapsContent) {
     return Stack(
       overflow: Overflow.visible,
       children: [
@@ -166,7 +167,9 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
           height: expandedHeight,
           width: double.infinity,
           child: ColoredBox(
-            color: Theme.of(context).primaryColor,
+            color: Theme
+                .of(context)
+                .primaryColor,
           ),
         ),
         // Positioned(

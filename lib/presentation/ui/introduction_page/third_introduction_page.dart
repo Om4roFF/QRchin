@@ -41,7 +41,7 @@ class ThirdPage extends StatelessWidget {
               flex: 5,
               child: Padding(
                 padding:
-                EdgeInsets.only(top: 15, left: 40, right: 40, bottom: 20),
+                    EdgeInsets.only(top: 15, left: 40, right: 40, bottom: 20),
                 child: Image.asset('assets/images/main-3.png'),
               ),
             ),
@@ -127,7 +127,8 @@ class _ContentListView extends StatelessWidget {
                         content[index][1] != null
                             ? TextSpan(
                           text: '${content[index][1]}',
-                          style: Theme.of(context)
+                          style: Theme
+                              .of(context)
                               .textTheme
                               .bodyText1!
                               .copyWith(
@@ -188,7 +189,8 @@ class _ContentBigSize extends StatelessWidget {
                       content[index][1] != null
                           ? TextSpan(
                         text: '${content[index][1]}',
-                        style: Theme.of(context)
+                        style: Theme
+                            .of(context)
                             .textTheme
                             .bodyText1!
                             .copyWith(

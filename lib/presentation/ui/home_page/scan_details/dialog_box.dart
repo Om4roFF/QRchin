@@ -59,9 +59,7 @@ class DialogBox extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
               ),
               style: TextButton.styleFrom(
-                backgroundColor: Theme
-                    .of(context)
-                    .primaryColor,
+                backgroundColor: Theme.of(context).primaryColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),

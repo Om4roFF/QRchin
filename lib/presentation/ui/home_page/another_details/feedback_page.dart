@@ -42,7 +42,7 @@ class FeedbackPage extends StatelessWidget {
               children: [
                 HeaderWidget(
                     content:
-                    'Мы приложим все усилия, чтобы ответить на твоё сообщение в кратчайшие сроки.'),
+                        'Мы приложим все усилия, чтобы ответить на твоё сообщение в кратчайшие сроки.'),
                 _AppealForm(),
                 _FullNameField(),
                 _EmailFormField(_emailFormField),

@@ -27,15 +27,11 @@ class FirstPage extends StatelessWidget {
             ),
             Flexible(
               child: AutoSizeText(
-                S
-                    .of(context)
-                    .free,
+                S.of(context).free,
                 minFontSize: 26,
                 style: TextStyle(
                   fontSize: 26,
-                  color: Theme
-                      .of(context)
-                      .primaryColor,
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
             ),

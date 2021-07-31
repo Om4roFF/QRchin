@@ -48,8 +48,7 @@ class ClientService {
       return ApiDraws.fromJson(response.data);
     } else {
       throw Exception(
-          'Scan QR Exception: code = ${response.statusCode}, body = ${response
-              .data}');
+          'Scan QR Exception: code = ${response.statusCode}, body = ${response.data}');
     }
   }
 }

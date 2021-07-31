@@ -80,11 +80,10 @@ class _ScannerWidgetState extends State<ScannerWidget> {
           if (state.scanStatus != ScanStatus.None) {
             showDialog(
               context: context,
-              builder: (context) =>
-                  LoadedDialogBox(
-                    scanStatus: state.scanStatus,
-                    result: state.qrCode,
-                  ),
+              builder: (context) => LoadedDialogBox(
+                scanStatus: state.scanStatus,
+                result: state.qrCode,
+              ),
             );
           } else {
             // Navigator.pop(context);

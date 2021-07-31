@@ -18,7 +18,7 @@ class ApiUtil {
       required String language,
       required String country}) async {
     final body =
-    GetClientBody(hash: hash, language: language, country: country);
+        GetClientBody(hash: hash, language: language, country: country);
     final result = await _clientService.createClient(body);
     return Mapper.fromApiClient(result);
   }
