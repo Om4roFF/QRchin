@@ -45,10 +45,7 @@ class HistoryViewPage extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 140),
                 child: SingleChildScrollView(
                   child: Card(
-                    color: Theme
-                        .of(context)
-                        .primaryColorLight
-                        .withOpacity(0.2),
+                    color: Theme.of(context).primaryColorLight.withOpacity(0.2),
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4),

@@ -169,9 +169,8 @@ class SocialMedia extends StatelessWidget {
                     Column(
                       children: [
                         InkWell(
-                          onTap: () =>
-                              _launchURL(
-                                  'https://www.snapchat.com/add/qrching'),
+                          onTap: () => _launchURL(
+                              'https://www.snapchat.com/add/qrching'),
                           child: Image.asset(
                             'assets/svg_logo/Snapchat.png',
                             width: size,

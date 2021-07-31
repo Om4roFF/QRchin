@@ -101,9 +101,7 @@ class __AppealFormState extends State<_AppealForm> {
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
-          border: Border.all(color: Theme
-              .of(context)
-              .dividerColor, width: 1),
+          border: Border.all(color: Theme.of(context).dividerColor, width: 1),
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(

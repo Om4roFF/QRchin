@@ -39,7 +39,7 @@ class FirstPage extends StatelessWidget {
               flex: 4,
               child: Padding(
                 padding:
-                EdgeInsets.only(top: 15, left: 30, right: 30, bottom: 20),
+                    EdgeInsets.only(top: 15, left: 30, right: 30, bottom: 20),
                 child: Image.asset(
                   'assets/images/main-2.png',
                 ),

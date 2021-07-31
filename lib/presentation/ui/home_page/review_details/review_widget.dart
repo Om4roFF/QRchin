@@ -54,7 +54,7 @@ class _ReviewTable extends StatelessWidget {
       "Number": "2",
       "Site": {
         "icon":
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Circle-icons-camera.svg/1200px-Circle-icons-camera.svg.png",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Circle-icons-camera.svg/1200px-Circle-icons-camera.svg.png",
         "name": "YouTube",
         "url": "www.youtube..com",
       },

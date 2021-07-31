@@ -126,16 +126,15 @@ class _ContentListView extends StatelessWidget {
                         ),
                         content[index][1] != null
                             ? TextSpan(
-                          text: '${content[index][1]}',
-                          style: Theme
-                              .of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(
-                              fontWeight: FontWeight.bold,
-                              decoration: TextDecoration.underline,
-                              fontSize: 12),
-                        )
+                                text: '${content[index][1]}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        decoration: TextDecoration.underline,
+                                        fontSize: 12),
+                              )
                             : TextSpan(),
                         TextSpan(text: ' '),
                         WidgetSpan(

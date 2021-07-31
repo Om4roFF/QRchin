@@ -115,9 +115,7 @@ class _ScannerWidgetState extends State<ScannerWidget> {
                         ),
                         IconButton(
                           icon: Icon(CustomIcons.flash),
-                          color: Theme
-                              .of(context)
-                              .backgroundColor,
+                          color: Theme.of(context).backgroundColor,
                           onPressed: () async {
                             await _controller?.toggleFlash();
                           },
